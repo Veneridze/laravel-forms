@@ -8,6 +8,7 @@ class Text implements Element {
         public string $label,
         public string $icon,
         public string $key,
+        public ?string $mask,
         public array $visibleif = []
     ) {}
     public function toData($value): array {
@@ -18,6 +19,7 @@ class Text implements Element {
     public function toArray(): array {
         return [
             'type' => $this->type,
+            'mask' => $this->mask,
             'label' => $this->label,
             'icon' => $this->icon,
             'key' => $this->key,

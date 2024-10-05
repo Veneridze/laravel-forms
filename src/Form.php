@@ -44,7 +44,7 @@ class Form extends Data
         foreach ($reflect->getProperties() as $property) {
             foreach ($property->getAttributes(Name::class) as $attribute) {
                 $key = $property->getName();
-                $result[$key] = $attribute->value; ///strtolower($property->getName());
+                $result[$key] = $attribute->getArguments()[0]; ///strtolower($property->getName());
             }
         }
         foreach ($form::fields('view') as $row) {
