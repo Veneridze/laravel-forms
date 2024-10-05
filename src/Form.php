@@ -38,7 +38,7 @@ class Form extends Data
         }
     }
 
-    public static function getKeyName(Form $form, string $key): string {
+    public static function getKeyName(string $form, string $key): string {
         $result = [];
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
