@@ -2,6 +2,7 @@
 namespace Veneridze\LaravelForms;
 
 
+use Exception;
 use ReflectionClass;
 use Veneridze\LaravelForms\Attributes\Name;
 use Veneridze\LaravelForms\Interfaces\Element;
@@ -32,13 +33,16 @@ class Form extends Data
     {
         $space = app(Permission::class)->getClassName($model);
         if ($type) {
-            return collect($rows)->map(fn(array $row) => collect($row)->filter(fn($field) => app(Permission::class)->can(Auth::user(), "{$space}.{$type}." . $field['key'])))->toArray();
+            return collect($rows)
+            ->map(fn(array $row) => collect($row)
+            ->filter(fn($field) => app(Permission::class)->can(Auth::user(), "{$space}.{$type}.{$field->key}")))
+            ->toArray();
         } else {
             return $rows;
         }
     }
 
-    public static function getKeyName(string $form, string $key): string {
+    public static function getKeyName(string $form, string $key) {
         $result = [];
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
@@ -49,10 +53,10 @@ class Form extends Data
         }
         foreach ($form::fields('view') as $row) {
             foreach ($row as $field) {
-                $result[$field->key] = $field->label;
+                $result[$field['key']] = $field['label'];
             }
         }
-        return $result[$key];
+        return array_key_exists($key, $result) ? $result[$key] : null;
     }
 
     public static function toData(Form $form): array

@@ -4,12 +4,12 @@ use Veneridze\LaravelForms\Interfaces\Element;
 
 class Text implements Element {
     public function __construct(
-        public string $type = 'text',
         public string $label,
-        public string $icon,
         public string $key,
-        public ?string $mask,
-        public array $visibleif = []
+        public string $type = 'text',
+        public array $visibleif = [],
+        public string $icon = "",
+        public null|string $mask = null,
     ) {}
     public function toData($value): array {
         return [
