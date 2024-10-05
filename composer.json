@@ -1,0 +1,36 @@
+{
+    "name": "veneridze/laravel-forms",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=8.2",
+        "laravel/framework": "^11.0",
+        "spatie/laravel-data": "^4.8",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Veneridze\\LaravelForms\\FormsProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Veneridze\\LaravelForms\\": "src/"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "baseline": "vendor/bin/phpstan analyse --generate-baseline",
+        "test": "vendor/bin/pest"
+    },
+    "authors": [
+        {
+            "name": "Veneridze",
+            "email": "viacheslav.kopaev@yandex.ru"
+        }
+    ]
+}
