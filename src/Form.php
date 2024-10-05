@@ -38,6 +38,22 @@ class Form extends Data
         }
     }
 
+    public function getKeyName(Form $form, string $key): string {
+        $result = [];
+        $reflect = new ReflectionClass($form);
+        foreach ($reflect->getProperties() as $property) {
+            foreach ($property->getAttributes(Name::class) as $attribute) {
+                $key = $property->getName();
+                $result[$key] = $attribute->value; ///strtolower($property->getName());
+            }
+        }
+        foreach ($form::fields('view') as $row) {
+            foreach ($row as $field) {
+                $result[$field->key] = $field->label;
+            }
+        }
+        return $result[$key];
+    }
 
     public static function toData(Form $form): array
     {
