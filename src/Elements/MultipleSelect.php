@@ -5,8 +5,8 @@ use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
 final class MultipleSelect extends MultipleSelectFromList {
     public function __construct(
         public string $label,
-        public array $options,
         public string $key,
+        public array $options = [],
         public array $visibleif = [],
         public ?string $icon = null
     ) {}

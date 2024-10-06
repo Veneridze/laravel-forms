@@ -7,8 +7,8 @@ final class Radio extends SingleSelectFromList {
     public function __construct(
         public string $label,
         public string $style,
-        public array $options,
         public string $key,
+        public array $options = [],
         public array $visibleif = [],
         public ?string $icon = null
     ) {}
