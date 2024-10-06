@@ -1,7 +1,7 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
-class Hidden implements Element {
+final class Hidden implements Element {
     public function __construct(
         public string $label,
         public string $key,
@@ -10,7 +10,7 @@ class Hidden implements Element {
 
     public function toData($value): array {
         return [
-            $this->label => $this->value
+            $this->label => $value
         ];
     }
     

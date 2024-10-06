@@ -1,23 +1,23 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
-use Veneridze\LaravelForms\Interfaces\Element;
-use Veneridze\LaravelForms\Prototype\Input;
+use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
 
-class Text extends Input implements Element {
+final class MultipleSelect extends MultipleSelectFromList {
     public function __construct(
         public string $label,
+        public array $options,
         public string $key,
-        public string $type = 'text',
         public array $visibleif = [],
-        public null|string $mask = null,
         public ?string $icon = null
     ) {}
+
     public function toArray(): array {
         return [
-            'type' => $this->type,
-            'mask' => $this->mask,
+            'type' => 'select',
+            'multiple' => true,
             'label' => $this->label,
             'icon' => $this->icon,
+            'options' => $this->options,
             'key' => $this->key,
             'visibleif' => $this->visibleif
         ];

@@ -1,8 +1,7 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
-use Veneridze\LaravelForms\Interfaces\Element;
 
-class Option {
+final class Option {
     public function __construct(
         public string $label,
         public string $value,

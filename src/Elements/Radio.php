@@ -3,7 +3,7 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
-class Radio extends SingleSelectFromList {
+final class Radio extends SingleSelectFromList {
     public function __construct(
         public string $label,
         public string $style,

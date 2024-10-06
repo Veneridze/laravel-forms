@@ -3,7 +3,7 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
-class Select extends SingleSelectFromList {
+final class Select extends SingleSelectFromList {
     public function __construct(
         public string $label,
         public array $options,

@@ -4,7 +4,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Veneridze\LaravelForms\Elements\Option;
 use Veneridze\LaravelForms\Interfaces\Element;
 
-class SingleSelectFromList extends Input implements Element {
+class MultipleSelectFromList extends Input implements Element {
 
     public string $label;
     /**
@@ -12,11 +12,20 @@ class SingleSelectFromList extends Input implements Element {
      * @var array<Option>
      */
     public array $options;
+    /**
+     * Summary of toData
+     * @param array<int> $values
+     * @return array
+     */
+    public function toData($values): array {
+        $opt = array_filter($this->options,fn(Option $option): bool => in_array($option->value, $values));
+        $result = [];
+        foreach ($opt as $option) {
+            $result[] = "{$option->label}, ";
+        }
 
-    public function toData($value): array {
-        $opt = array_filter($this->options,fn(Option $option): bool => $option->value == $value);
         return [
-            $this->label => count($opt) == 1 ? $opt[0]->value : $value
+            $this->label => $result
         ];
     }
 
