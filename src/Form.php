@@ -136,7 +136,7 @@ class Form extends Data
         foreach ($info->relations as $relation) {
             $name = $relation->name;
             if (array_key_exists($name, $data)) {
-                if ($relation->type != BelongsTo::class && $relation->type != BelongsToMany::class) {
+                if ($relation->type != BelongsTo::class) {
                     $model->$name()->sync($data[$name]);
                 }
             }
