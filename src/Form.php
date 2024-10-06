@@ -53,7 +53,7 @@ class Form extends Data
         }
         foreach ($form::fields('view') as $row) {
             foreach ($row as $field) {
-                $result[$field['key']] = $field['label'];
+                $result[$field->key] = $field->label;
             }
         }
         return array_key_exists($key, $result) ? $result[$key] : null;
