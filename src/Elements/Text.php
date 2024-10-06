@@ -8,8 +8,8 @@ class Text implements Element {
         public string $key,
         public string $type = 'text',
         public array $visibleif = [],
-        public string $icon = "",
         public null|string $mask = null,
+        public ?string $icon = null
     ) {}
     public function toData($value): array {
         return [

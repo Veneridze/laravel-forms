@@ -6,10 +6,10 @@ use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 class Select extends SingleSelectFromList {
     public function __construct(
         public string $label,
-        public string $icon,
         public array $options,
         public string $key,
-        public array $visibleif = []
+        public array $visibleif = [],
+        public ?string $icon = null
     ) {}
 
     public function toArray(): array {

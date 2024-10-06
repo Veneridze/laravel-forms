@@ -7,10 +7,10 @@ class Radio extends SingleSelectFromList {
     public function __construct(
         public string $label,
         public string $style,
-        public string $icon,
         public array $options,
         public string $key,
-        public array $visibleif = []
+        public array $visibleif = [],
+        public ?string $icon = null
     ) {}
 
     public function toData($value): array {
