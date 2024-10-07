@@ -1,5 +1,5 @@
 <?php
-namespace Veneridze\LaravelPermission;
+namespace Veneridze\LaravelForms;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
