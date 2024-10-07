@@ -12,8 +12,8 @@ final class Date extends Input implements Element {
 
     public function __construct(
         public string $label,
-        public string $type = 'date',
         public string $key,
+        public string $type = 'date',
         public array $visibleif = [],
     ) {}
     public function toArray(): array {
