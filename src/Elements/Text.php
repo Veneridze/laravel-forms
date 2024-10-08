@@ -11,6 +11,7 @@ class Text extends Input implements Element {
         public string $type = 'text',
         public array $visibleif = [],
         public null|string $mask = null,
+        public ?int $maxlength = null,
         public ?string $placeholder = null,
         public ?string $icon = null
     ) {}
