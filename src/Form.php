@@ -88,6 +88,10 @@ class Form extends Data
 
     public function post(string $class): Model
     {
+        $role = Auth::user();
+        if(method_exists($this, 'fillByRelatedModel')) {
+            $this->fillByRelatedModel($role->relationModel());
+        }
         $other = array_filter(array_change_key_case($this->all()));
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app($class)->getTable()));
         $data = collect($other)->only($allows)->toArray();
@@ -102,6 +106,10 @@ class Form extends Data
 
     public function patch(object $model)
     {
+        $role = Auth::user();
+        if(method_exists($this, 'fillByRelatedModel')) {
+            $this->fillByRelatedModel($role->relationModel());
+        }
         $other = array_filter(array_change_key_case($this->all()));
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app($model::class)->getTable()));
         $data = collect($other)->only($allows)->toArray();
