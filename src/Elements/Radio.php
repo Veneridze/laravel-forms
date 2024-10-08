@@ -6,8 +6,8 @@ use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 final class Radio extends SingleSelectFromList {
     public function __construct(
         public string $label,
-        public string $style,
         public string $key,
+        public ?string $style = null,
         public array $columns = [],
         public bool $disabled = false,
         public array $options = [],
