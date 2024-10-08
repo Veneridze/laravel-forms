@@ -10,6 +10,7 @@ class Text extends Input implements Element {
         public bool $disabled = false,
         public string $type = 'text',
         public array $visibleif = [],
+        public string $prefix = null,
         public null|string $mask = null,
         public ?int $maxlength = null,
         public ?string $placeholder = null,
