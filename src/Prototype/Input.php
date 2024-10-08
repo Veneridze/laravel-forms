@@ -11,7 +11,6 @@ class Input implements Element {
      * Summary of options
      * @var array<Option>
      */
-    public array $options;
     
     public function visibleif(array $conditions): static {
         $this->visibleif = $conditions;
@@ -46,8 +45,7 @@ class Input implements Element {
     public function toArray(): array {
         return [
             'type' => 'text',
-            'label' => $this->label,
-            'options' => $this->options,
+            'label' => $this->label
         ];
     }
 }

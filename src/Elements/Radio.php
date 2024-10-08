@@ -8,6 +8,7 @@ final class Radio extends SingleSelectFromList {
         public string $label,
         public string $style,
         public string $key,
+        public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
         public ?string $icon = null
@@ -23,6 +24,7 @@ final class Radio extends SingleSelectFromList {
     public function toArray(): array {
         return [
             'type' => 'radio',
+            'disabled' => $this->disabled,
             'label' => $this->label,
             'style' => $this->style,
             'icon' => $this->icon,

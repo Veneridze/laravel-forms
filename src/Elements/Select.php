@@ -7,6 +7,7 @@ final class Select extends SingleSelectFromList {
     public function __construct(
         public string $label,
         public string $key,
+        public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
         public ?string $icon = null
@@ -15,6 +16,7 @@ final class Select extends SingleSelectFromList {
     public function toArray(): array {
         return [
             'type' => 'select',
+            'disabled' => $this->disabled,
             'label' => $this->label,
             'icon' => $this->icon,
             'options' => $this->options,

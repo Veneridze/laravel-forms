@@ -7,6 +7,7 @@ class Text extends Input implements Element {
     public function __construct(
         public string $label,
         public string $key,
+        public bool $disabled = false,
         public string $type = 'text',
         public array $visibleif = [],
         public null|string $mask = null,
@@ -18,6 +19,7 @@ class Text extends Input implements Element {
             'mask' => $this->mask,
             'label' => $this->label,
             'icon' => $this->icon,
+            'disabled' => $this->disabled,
             'key' => $this->key,
             'visibleif' => $this->visibleif
         ];

@@ -6,6 +6,7 @@ final class MultipleSelect extends MultipleSelectFromList {
     public function __construct(
         public string $label,
         public string $key,
+        public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
         public ?string $icon = null
@@ -15,6 +16,7 @@ final class MultipleSelect extends MultipleSelectFromList {
         return [
             'type' => 'select',
             'multiple' => true,
+            'disabled' => $this->disabled,
             'label' => $this->label,
             'icon' => $this->icon,
             'options' => $this->options,
