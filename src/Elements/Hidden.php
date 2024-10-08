@@ -3,9 +3,9 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 final class Hidden implements Element {
     public function __construct(
-        public string $label,
         public string $key,
-        public string $value,
+        public ?string $label = null,
+        public ?string $value = null,
         public bool $disabled = false,
     ) {}
 

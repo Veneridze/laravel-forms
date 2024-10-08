@@ -9,6 +9,7 @@ final class MultipleSelect extends MultipleSelectFromList {
         public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
+        public ?string $placeholder = null,
         public ?string $icon = null
     ) {}
 

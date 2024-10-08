@@ -10,6 +10,7 @@ final class Select extends SingleSelectFromList {
         public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
+        public ?string $placeholder = null,
         public ?string $icon = null
     ) {}
 

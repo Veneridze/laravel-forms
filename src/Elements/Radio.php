@@ -8,9 +8,11 @@ final class Radio extends SingleSelectFromList {
         public string $label,
         public string $style,
         public string $key,
+        public array $columns = [],
         public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
+        public ?string $placeholder = null,
         public ?string $icon = null
     ) {}
 

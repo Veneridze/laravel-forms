@@ -14,6 +14,7 @@ final class Checkbox extends Input implements Element {
         public string $label,
         public string $key,
         public bool $disabled = false,
+        public ?string $placeholder = null,
         public array $visibleif = [],
     ) {}
     public function toArray(): array {
