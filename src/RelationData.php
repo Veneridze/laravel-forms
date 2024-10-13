@@ -1,9 +1,13 @@
 <?php
+
 namespace Veneridze\LaravelForms;
+
 use Spatie\LaravelData\Data;
-class RelationData extends Data {
+
+class RelationData extends Data
+{
     public function __construct(
-        public ?int $id,
+        public mixed $id,
         public ?string $name
     ) {}
 }
