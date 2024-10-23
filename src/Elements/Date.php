@@ -14,10 +14,10 @@ final class Date extends Input implements Element {
         public string $label,
         public string $key,
         public string $type = 'date',
-        public bool $disabled = false,
+        public ?bool $disabled = false,
         public ?string $dates,
         public ?string $placeholder = null,
-        public array $visibleif = [],
+        public ?array $visibleif = [],
     ) {}
     public function toArray(): array {
         return [
