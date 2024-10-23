@@ -13,6 +13,7 @@ final class Date extends Input implements Element {
     public function __construct(
         public string $label,
         public string $key,
+        public ?string $dates,
         public string $type = 'date',
         public bool $disabled = false,
         public ?string $placeholder = null,
@@ -24,6 +25,7 @@ final class Date extends Input implements Element {
             'disabled' => $this->disabled,
             'label' => $this->label,
             'key' => $this->key,
+            'dates' => $this->dates,
             'visibleif' => $this->visibleif
         ];
     }
