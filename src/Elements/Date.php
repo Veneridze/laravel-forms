@@ -15,9 +15,11 @@ final class Date extends Input implements Element {
         public string $key,
         public ?string $type = 'date',
         public ?bool $disabled = false,
-        public ?string $dates = null,
         public ?string $placeholder = null,
         public ?array $visibleif = [],
+        public ?bool $holidays = true,
+        public ?int $mindate = null,
+        public ?string $default = null,
     ) {}
     public function toArray(): array {
         return [
@@ -25,8 +27,10 @@ final class Date extends Input implements Element {
             'disabled' => $this->disabled,
             'label' => $this->label,
             'key' => $this->key,
-            'dates' => $this->dates ?? null,
-            'visibleif' => $this->visibleif
+            'visibleif' => $this->visibleif,
+            'holidays' => $this->holidays ?? true,
+            'mindate' => $this->mindate ?? null,
+            'default' => $this->default ?? null
         ];
     }
 }
