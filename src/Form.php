@@ -49,16 +49,16 @@ class Form extends Data
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
             foreach ($property->getAttributes(Name::class) as $attribute) {
-                //$key = ;
-                $result[$property->getName()] = $attribute->getArguments()[0]; ///strtolower($property->getName());
+                $propertyName = $property->getName();
+                Arr::set($result, $propertyName, $attribute->getArguments()[0]);
             }
         }
         foreach ($form::fields('view') as $row) {
             foreach ($row as $field) {
-                $result[$field->key] = $field->label;
+                Arr::set($result, $field->key, $field->label);
             }
         }
-        return Arr::get($result, $key, null); //array_key_exists($key, $result) ? $result[$key] : null;
+        return Arr::get($result, $key, null);
     }
 
     public static function toData(Form $form): array
@@ -67,8 +67,8 @@ class Form extends Data
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
             foreach ($property->getAttributes(Name::class) as $attribute) {
-                $key = $property->getName();
-                $result[$attribute->value] = $form->$key; ///strtolower($property->getName());
+                $propertyName = $property->getName();
+                Arr::set($result, $attribute->getArguments()[0], $form->$propertyName);
             }
         }
         return [
@@ -78,7 +78,7 @@ class Form extends Data
                     return array_map(
                         function (Element $field) use ($form) {
                             $key = $field->key;
-                            return $field->toData($form->$key);
+                            return $field->toData(Arr::get($form, $key));
                         },
                         $row
                     );
