@@ -3,6 +3,7 @@ namespace Veneridze\LaravelForms;
 
 
 use Exception;
+use Illuminate\Support\Arr;
 use ReflectionClass;
 use Veneridze\LaravelForms\Attributes\Name;
 use Veneridze\LaravelForms\Interfaces\Element;
@@ -24,14 +25,15 @@ class Form extends Data
      * @param string $type
      * @return array<array<Element>>
      */
+    public static Model $model;
     public static function fields(string $type): array
     {
         return [];
     }
 
-    public static function filterFields(string $type = null, string $model, array $rows): array
+    public static function filterFields(string $type = null, array $rows): array
     {
-        $space = app(Permission::class)->getClassName($model);
+        $space = app(Permission::class)->getClassName(static::$model);
         if ($type) {
             return collect($rows)
             ->map(fn(array $row) => collect($row)
@@ -47,8 +49,8 @@ class Form extends Data
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
             foreach ($property->getAttributes(Name::class) as $attribute) {
-                $key = $property->getName();
-                $result[$key] = $attribute->getArguments()[0]; ///strtolower($property->getName());
+                //$key = ;
+                $result[$property->getName()] = $attribute->getArguments()[0]; ///strtolower($property->getName());
             }
         }
         foreach ($form::fields('view') as $row) {
@@ -56,7 +58,7 @@ class Form extends Data
                 $result[$field->key] = $field->label;
             }
         }
-        return array_key_exists($key, $result) ? $result[$key] : null;
+        return Arr::get($result, $key, null); //array_key_exists($key, $result) ? $result[$key] : null;
     }
 
     public static function toData(Form $form): array
@@ -86,66 +88,69 @@ class Form extends Data
         ];
     }
 
-    public function post(string $class): Model
+    public function post(): Model
     {
         $role = Auth::user();
         if(method_exists($this, 'fillByRelatedModel')) {
             $this->fillByRelatedModel($role->relationModel());
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
-        $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app($class)->getTable()));
+        $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
-        $model = $class::create($data);
-        $this->updateRelationShips($other, $model);
-        if (property_exists($model, 'observer')) {
+        $obj = static::$model::create($data);
+        $this->updateRelationShips($other);
+        if (property_exists(static::$model, 'observer')) {
 
-            $model::$observer::created1($model);
+            static::$model::$observer::created1($obj);
         }
-        return $model;
+        return $obj;
     }
 
-    public function patch(object $model)
+    public function patch()
     {
-        $role = Auth::user();
+        //static::$model = static::class;
+        //$role = Auth::user();
         if(method_exists($this, 'fillByRelatedModel')) {
-            $this->fillByRelatedModel($role->relationModel());
+            $this->fillByRelatedModel(static::$model->relationModel());
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
-        $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app($model::class)->getTable()));
+        $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
-        $model->update($data);
-        $this->updateRelationShips($other, $model);
-        $model->refresh();
-        if (property_exists($model::class, 'observer')) {
-            $model::$observer::updated1($model);
+        static::$model->update($data);
+        $this->updateRelationShips($other, static::$model);
+        static::$model->refresh();
+        if (property_exists(static::$model, 'observer')) {
+            static::$model::$observer::updated1(static::$model);
         }
     }
 
-    public static function getWithRelations(Model $model)
+    public static function getWithRelations()
     {
-        $basic = self::From($model)->toArray();
-        $info = ModelInfo::forModel($model::class);
+        //static::$model = static::class;
+        $basic = self::From(static::$model)->toArray();
+        $info = ModelInfo::forModel(static::$model);
         foreach ($info->relations as $relation) {
             $name = $relation->name;
             $basic[$name] = match ($relation->type) {
-                BelongsToMany::class => RelationData::collect($model->$name)->toArray(),
-                HasMany::class => RelationData::collect($model->$name)->toArray(),
-                HasManyThrough::class => RelationData::collect($model->$name)->toArray(),
-                BelongsTo::class => RelationData::from($model->$name)->toArray(),
+                BelongsToMany::class => RelationData::collect(static::$model->$name)->toArray(),
+                HasMany::class => RelationData::collect(static::$model->$name)->toArray(),
+                HasManyThrough::class => RelationData::collect(static::$model->$name)->toArray(),
+                BelongsTo::class => RelationData::from(static::$model->$name)->toArray(),
                 default => null
             };
         }
         return $basic;
     }
 
-    private function updateRelationShips($data, Model $model)
+    private function updateRelationShips($data)
     {
-        $info = ModelInfo::forModel($model::class);
+        //static::$model = static::class;
+        $info = ModelInfo::forModel(static::$model);
         foreach ($info->relations as $relation) {
             $name = $relation->name;
             if (array_key_exists($name, $data)) {
                 if ($relation->type != BelongsTo::class) {
-                    $model->$name()->sync($data[$name]);
+                    static::$model->$name()->sync($data[$name]);
                 }
             }
         }
