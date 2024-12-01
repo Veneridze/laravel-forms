@@ -25,7 +25,7 @@ class Form extends Data
      * @param string $type
      * @return array<array<Element>>
      */
-    public static Model $model;
+    public static string $model;
     public static function fields(string $type): array
     {
         return [];
@@ -124,18 +124,17 @@ class Form extends Data
         }
     }
 
-    public static function getWithRelations()
+    public static function getWithRelations(Model $model)
     {
-        //static::$model = static::class;
-        $basic = self::From(static::$model)->toArray();
-        $info = ModelInfo::forModel(static::$model);
+        $basic = self::from($model)->toArray();
+        $info = ModelInfo::forModel($model);
         foreach ($info->relations as $relation) {
             $name = $relation->name;
             $basic[$name] = match ($relation->type) {
-                BelongsToMany::class => RelationData::collect(static::$model->$name)->toArray(),
-                HasMany::class => RelationData::collect(static::$model->$name)->toArray(),
-                HasManyThrough::class => RelationData::collect(static::$model->$name)->toArray(),
-                BelongsTo::class => RelationData::from(static::$model->$name)->toArray(),
+                BelongsToMany::class => RelationData::collect($model->$name)->toArray(),
+                HasMany::class => RelationData::collect($model->$name)->toArray(),
+                HasManyThrough::class => RelationData::collect($model->$name)->toArray(),
+                BelongsTo::class => RelationData::from($model->$name)->toArray(),
                 default => null
             };
         }
