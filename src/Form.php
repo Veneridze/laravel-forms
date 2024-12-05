@@ -92,7 +92,10 @@ class Form extends Data
     {
         $role = Auth::user();
         if(method_exists($this, 'fillByRelatedModel')) {
-            $this->fillByRelatedModel($role->relationModel());
+            $rel = $role->relationModel();
+            if($rel) {
+                $this->fillByRelatedModel($rel);
+            }
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
@@ -111,7 +114,11 @@ class Form extends Data
         //static::$model = static::class;
         //$role = Auth::user();
         if(method_exists($this, 'fillByRelatedModel')) {
-            $this->fillByRelatedModel($model->relationModel());
+            $rel = $model->relationModel();
+            if($rel) {
+                $this->fillByRelatedModel($rel);
+            }
+            
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
