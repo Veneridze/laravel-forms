@@ -101,7 +101,7 @@ class Form extends Data
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
         $obj = static::$model::create($data);
-        $this->updateRelationShips($other);
+        $this->updateRelationShips($obj, $other);
         if (property_exists(static::$model, 'observer')) {
 
             static::$model::$observer::created1($obj);
@@ -148,15 +148,15 @@ class Form extends Data
         return $basic;
     }
 
-    private function updateRelationShips($data)
+    private function updateRelationShips(Model $model, $data)
     {
         //static::$model = static::class;
-        $info = ModelInfo::forModel(static::$model);
+        $info = ModelInfo::forModel($model);
         foreach ($info->relations as $relation) {
             $name = $relation->name;
             if (array_key_exists($name, $data)) {
                 if ($relation->type != BelongsTo::class) {
-                    static::$model->$name()->sync($data[$name]);
+                    $model->$name()->sync($data[$name]);
                 }
             }
         }
