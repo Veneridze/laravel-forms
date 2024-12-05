@@ -106,21 +106,21 @@ class Form extends Data
         return $obj;
     }
 
-    public function patch()
+    public function patch(Model $model)
     {
         //static::$model = static::class;
         //$role = Auth::user();
         if(method_exists($this, 'fillByRelatedModel')) {
-            $this->fillByRelatedModel(static::$model->relationModel());
+            $this->fillByRelatedModel($model->relationModel());
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
-        static::$model->update($data);
-        $this->updateRelationShips($other, static::$model);
-        static::$model->refresh();
-        if (property_exists(static::$model, 'observer')) {
-            static::$model::$observer::updated1(static::$model);
+        $model->update($data);
+        $this->updateRelationShips($other, $model);
+        $model->refresh();
+        if (property_exists($model, 'observer')) {
+            $model::$observer::updated1($model);
         }
     }
 
