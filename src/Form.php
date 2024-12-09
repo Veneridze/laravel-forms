@@ -1,4 +1,5 @@
 <?php
+
 namespace Veneridze\LaravelForms;
 
 
@@ -36,15 +37,16 @@ class Form extends Data
         $space = app(Permission::class)->getClassName(static::$model);
         if ($type) {
             return collect($rows)
-            ->map(fn(array $row) => collect($row)
-            ->filter(fn($field) => app(Permission::class)->can(Auth::user(), "{$space}.{$type}.{$field->key}")))
-            ->toArray();
+                ->map(fn(array $row) => collect($row)
+                    ->filter(fn($field) => app(Permission::class)->can(Auth::user(), "{$space}.{$type}.{$field->key}")))
+                ->toArray();
         } else {
             return $rows;
         }
     }
 
-    public static function getKeyName(string $form, string $key) {
+    public static function getKeyName(string $form, string $key)
+    {
         $result = [];
         $reflect = new ReflectionClass($form);
         foreach ($reflect->getProperties() as $property) {
@@ -91,9 +93,9 @@ class Form extends Data
     public function post(): Model
     {
         $role = Auth::user();
-        if(method_exists($this, 'fillByRelatedModel')) {
+        if (method_exists($this, 'fillByRelatedModel')) {
             $rel = $role->relationModel();
-            if($rel) {
+            if ($rel) {
                 $this->fillByRelatedModel($rel);
             }
         }
@@ -113,12 +115,11 @@ class Form extends Data
     {
         //static::$model = static::class;
         //$role = Auth::user();
-        if(method_exists($this, 'fillByRelatedModel')) {
+        if (method_exists($this, 'fillByRelatedModel')) {
             $rel = $model->relationModel();
-            if($rel) {
+            if ($rel) {
                 $this->fillByRelatedModel($rel);
             }
-            
         }
         $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
