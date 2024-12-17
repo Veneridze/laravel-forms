@@ -101,6 +101,7 @@ class Form extends Data
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
         $obj = static::$model::create($data);
+        
         $this->updateRelationShips($obj, $other);
         if (property_exists(static::$model, 'observer')) {
 
@@ -113,7 +114,7 @@ class Form extends Data
     {
         //static::$model = static::class;
         //$role = Auth::user();
-        if(method_exists($this, 'fillByRelatedModel')) {
+        if(method_exists($this, 'fillByRelatedModel') && method_exists($this, 'relationModel')) {
             $rel = $model->relationModel();
             if($rel) {
                 $this->fillByRelatedModel($rel);
@@ -124,7 +125,7 @@ class Form extends Data
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
         $model->update($data);
-        $this->updateRelationShips($other, $model);
+        $this->updateRelationShips($model, $other);
         $model->refresh();
         if (property_exists($model, 'observer')) {
             $model::$observer::updated1($model);
