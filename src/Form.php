@@ -99,7 +99,8 @@ class Form extends Data
                 $this->fillByRelatedModel($rel);
             }
         }
-        $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
+        $other = $this->all();
+        //$other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
         $obj = static::$model::create($data);
@@ -122,7 +123,8 @@ class Form extends Data
                 $this->fillByRelatedModel($rel);
             }
         }
-        $other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
+        $other = $this->all();
+        //$other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
         $data = collect($other)->only($allows)->toArray();
         $model->update($data);
