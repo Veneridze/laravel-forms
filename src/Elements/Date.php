@@ -1,10 +1,15 @@
 <?php
+
 namespace Veneridze\LaravelForms\Elements;
+
 use Veneridze\LaravelForms\Interfaces\Element;
+use Carbon\Carbon;
 use Veneridze\LaravelForms\Prototype\Input;
 
-final class Date extends Input implements Element {
-    public function toData($value): array {
+final class Date extends Input implements Element
+{
+    public function toData($value): array
+    {
         return [
             $this->label => $value ? 'Да' : 'Нет'
         ];
@@ -18,10 +23,12 @@ final class Date extends Input implements Element {
         public ?string $placeholder = null,
         public ?array $visibleif = [],
         public ?bool $holidays = true,
-        public ?int $mindate = null,
+        public ?Carbon $mindate = null,
+        public ?Carbon $maxdate = null,
         public ?string $default = null,
     ) {}
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return [
             'type' => $this->type,
             'disabled' => $this->disabled,
@@ -29,7 +36,8 @@ final class Date extends Input implements Element {
             'key' => $this->key,
             'visibleif' => $this->visibleif,
             'holidays' => $this->holidays ?? true,
-            'mindate' => $this->mindate ?? null,
+            'mindate' => $this->mindate ? $this->mindate->getTimestamp() :  null,
+            'maxdate' => $this->maxdate ? $this->maxdate->getTimestamp() : null,
             'default' => $this->default ?? null
         ];
     }
