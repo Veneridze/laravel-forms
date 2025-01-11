@@ -4,7 +4,7 @@
         "php": ">=8.2",
         "laravel/framework": "^11.0",
         "spatie/laravel-data": "^4.8",
-        "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-package-tools": "^1.18",
         "veneridze/laravel-permission": "dev-main"
     },
     "extra": {
