@@ -22,11 +22,13 @@ final class Date extends Input implements Element
         public ?bool $disabled = false,
         public ?string $placeholder = null,
         public ?array $visibleif = [],
+        public array $displayifset = [],
         public ?bool $holidays = true,
         public ?Carbon $mindate = null,
         public ?Carbon $maxdate = null,
         public ?string $default = null,
-    ) {}
+    ) {
+    }
     public function toArray(): array
     {
         return [
@@ -35,8 +37,9 @@ final class Date extends Input implements Element
             'label' => $this->label,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'displayifset' => $this->displayifset,
             'holidays' => $this->holidays ?? true,
-            'mindate' => $this->mindate ? $this->mindate->getTimestamp() :  null,
+            'mindate' => $this->mindate ? $this->mindate->getTimestamp() : null,
             'maxdate' => $this->maxdate ? $this->maxdate->getTimestamp() : null,
             'default' => $this->default ?? null
         ];

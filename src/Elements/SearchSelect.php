@@ -15,6 +15,7 @@ final class SearchSelect extends MultipleSelectFromList
         public bool $multiple = false,
         public array $linkIncludes = [],
         public array $visibleif = [],
+        public array $displayifset = [],
         //public ?string $placeholder = null,
         //public ?string $icon = null
     ) {
@@ -35,7 +36,8 @@ final class SearchSelect extends MultipleSelectFromList
             //'icon' => $this->icon,
             //'options' => $this->options,
             'key' => $this->key,
-            'visibleif' => $this->visibleif
+            'visibleif' => $this->visibleif,
+            'displayifset' => $this->displayifset
         ];
     }
 }

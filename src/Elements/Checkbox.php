@@ -3,8 +3,10 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\Input;
 
-final class Checkbox extends Input implements Element {
-    public function toData($value): array {
+final class Checkbox extends Input implements Element
+{
+    public function toData($value): array
+    {
         return [
             $this->label => $value ? 'Да' : 'Нет'
         ];
@@ -16,14 +18,18 @@ final class Checkbox extends Input implements Element {
         public bool $disabled = false,
         public ?string $placeholder = null,
         public array $visibleif = [],
-    ) {}
-    public function toArray(): array {
+        public array $displayifset = [],
+    ) {
+    }
+    public function toArray(): array
+    {
         return [
             'type' => 'checkbox',
             'disabled' => $this->disabled,
             'label' => $this->label,
             'key' => $this->key,
-            'visibleif' => $this->visibleif
+            'visibleif' => $this->visibleif,
+            'displayifset' => $this->displayifset
         ];
     }
 }

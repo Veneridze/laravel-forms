@@ -3,7 +3,8 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
-final class Radio extends SingleSelectFromList {
+final class Radio extends SingleSelectFromList
+{
     public function __construct(
         public string $label,
         public string $key,
@@ -12,18 +13,22 @@ final class Radio extends SingleSelectFromList {
         public bool $disabled = false,
         public array $options = [],
         public array $visibleif = [],
+        public array $displayifset = [],
         public ?string $placeholder = null,
         public ?string $icon = null
-    ) {}
+    ) {
+    }
 
-    public function toData($value): array {
-        $opt = array_filter($this->options,fn(Option $option): bool => $option->value == $value);
+    public function toData($value): array
+    {
+        $opt = array_filter($this->options, fn(Option $option): bool => $option->value == $value);
         return [
             $this->label => count($opt) == 1 ? $opt[0]->value : $value
         ];
     }
-    
-    public function toArray(): array {
+
+    public function toArray(): array
+    {
         return [
             'type' => 'radio',
             'disabled' => $this->disabled,
@@ -32,6 +37,7 @@ final class Radio extends SingleSelectFromList {
             'icon' => $this->icon,
             'options' => $this->options,
             'key' => $this->key,
+            'displayifset' => $this->displayifset,
             'visibleif' => $this->visibleif
         ];
     }
