@@ -8,6 +8,7 @@ final class Card implements Arrayable
     public function __construct(
         public int $id,
         public string $label,
+        public ?string $hint,
         public ?string $icon = null,
         public ?array $features = null,
         public ?array $actions = null,
@@ -19,6 +20,7 @@ final class Card implements Arrayable
         return [
             'id' => $this->id,
             'label' => $this->label,
+            'hint' => $this->hint,
             'icon' => $this->icon,
             'features' => $this->features,
             'actions' => $this->actions
