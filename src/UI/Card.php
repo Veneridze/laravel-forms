@@ -8,7 +8,7 @@ final class Card implements Arrayable
     public function __construct(
         public int $id,
         public string $label,
-        public ?string $hint,
+        public ?string $hint = null,
         public ?string $icon = null,
         public ?array $features = null,
         public ?array $actions = null,
