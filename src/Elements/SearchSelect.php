@@ -11,6 +11,7 @@ final class SearchSelect extends MultipleSelectFromList
         public string $link,
         public ?string $addLink = null,
         public ?array $fields = null,
+        public ?bool $canSearch = false,
         public bool $emptyFetch = false,
         public bool $multiple = false,
         public array $linkIncludes = [],
