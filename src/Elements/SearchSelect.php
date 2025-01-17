@@ -32,10 +32,8 @@ final class SearchSelect extends MultipleSelectFromList
             'fields' => $this->fields,
             'addLink' => $this->addLink,
             'linkIncludes' => $this->linkIncludes,
-            //'disabled' => $this->disabled,
             'label' => $this->label,
-            //'icon' => $this->icon,
-            //'options' => $this->options,
+            'canSearch' => $this->canSearch,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset
