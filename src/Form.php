@@ -102,9 +102,7 @@ class Form extends Data
         $other = $this->all();
         //$other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
-        if (array_key_exists('id', $allows)) {
-            unset($allows['id']);
-        }
+        $allows = array_values(array_filter($allows, fn($k) => $k != 'id'));
         $data = collect($other)->only($allows)->toArray();
         $obj = static::$model::create($data);
 
