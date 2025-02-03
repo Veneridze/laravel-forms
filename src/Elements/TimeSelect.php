@@ -24,13 +24,15 @@ class TimeSelect extends Input implements Element
     public function toArray(): array
     {
         if ($this->step) {
-            $hours = substr("00" . ($this->step / 60), 0, 2);
-            $minutes = substr("00" . ($this->step % 60), 0, 2);
+            // $hours = substr("00" . ($this->step / 60), 0, 2);
+            // $minutes = substr("00" . ($this->step % 60), 0, 2);
+            $hours = $this->step / 60;
+            $minutes = $this->step % 60;
         }
         return [
             'label' => $this->label,
             'key' => $this->key,
-            'step' => $this->step ? "{$hours}:{$minutes}" : "00:00",
+            'step' => $this->step ? "{$hours}:{$minutes}" : "00:01",
             'disabled' => $this->disabled,
             'type' => 'time',
             // 'mask' => $this->mask,
