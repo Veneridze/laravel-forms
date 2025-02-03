@@ -3,33 +3,32 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\Input;
 
-class Text extends Input implements Element
+class TimeSelect extends Input implements Element
 {
     public function __construct(
         public string $label,
         public string $key,
+        public int $step = 0,
         public bool $disabled = false,
-        public string $type = 'text',
         public array $visibleif = [],
         public array $displayifset = [],
-        public ?string $prefix = null,
-        public ?string $mask = null,
-        public ?int $maxlength = null,
-        public ?string $placeholder = null,
-        public ?string $icon = null
+        // public ?string $prefix = null,
+        // public ?string $mask = null,
+        // public ?int $maxlength = null,
+        // public ?string $placeholder = null,
+        // public ?string $icon = null
     ) {
     }
     public function toArray(): array
     {
         return [
-            'type' => $this->type,
-            'mask' => $this->mask,
-            'maxlength' => $this->maxlength,
-            'placeholder' => $this->placeholder,
             'label' => $this->label,
-            'icon' => $this->icon,
-            'disabled' => $this->disabled,
             'key' => $this->key,
+            'step' => $step,
+            'disabled' => $this->disabled,
+            'type' => 'time',
+            // 'mask' => $this->mask,
+            // 'icon' => $this->icon,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset
         ];
