@@ -20,16 +20,20 @@ final class TimeRange extends Input implements Element
         public string $startKey,
         public string $endKey,
         public ?bool $disabled = false,
+        public ?int $step = null,
         public ?string $placeholder = null,
         public ?array $visibleif = [],
         public array $displayifset = [],
-        // public ?Carbon $mindate = null,
-        // public ?Carbon $maxdate = null,
-        // public ?string $default = null,
     ) {
     }
     public function toArray(): array
     {
+        if ($this->step) {
+            // $hours = substr("00" . ($this->step / 60), 0, 2);
+            // $minutes = substr("00" . ($this->step % 60), 0, 2);
+            $hours = $this->step / 60;
+            $minutes = $this->step % 60;
+        }
         return [
             'type' => 'timerange',
             'disabled' => $this->disabled,
@@ -37,10 +41,8 @@ final class TimeRange extends Input implements Element
             'startKey' => $this->startKey,
             'endKey' => $this->endKey,
             'visibleif' => $this->visibleif,
+            'step' => $this->step ? "{$hours}:{$minutes}" : "00:01",
             'displayifset' => $this->displayifset,
-            // 'mindate' => $this->mindate ? $this->mindate->getTimestamp() : null,
-            // 'maxdate' => $this->maxdate ? $this->maxdate->getTimestamp() : null,
-            // 'default' => $this->default ?? null
         ];
     }
 }
