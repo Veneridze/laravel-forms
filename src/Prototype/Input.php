@@ -24,6 +24,11 @@ class Input implements Element
         return $this;
     }
 
+    public function __serialize(): array
+    {
+        return $this->toArray();
+    }
+
     public function label(string $label): static
     {
         $this->label = $label;

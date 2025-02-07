@@ -8,13 +8,6 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 final class DateRange extends Input implements Element
 {
-    // public function toData($value): array
-    // {
-    //     return [
-    //         $this->label => $value ? 'Да' : 'Нет'
-    //     ];
-    // }
-
     public function __construct(
         public string $label,
         public string $startKey,
