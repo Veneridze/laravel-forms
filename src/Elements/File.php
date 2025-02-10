@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 class File extends Input implements Element
 {
+    public string $type = 'file';
     public function __construct(
         public string $label,
         public string $key,

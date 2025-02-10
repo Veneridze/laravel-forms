@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 class TimeSelect extends Input implements Element
 {
+    public string $type = 'time';
     public function __construct(
         public string $label,
         public string $key,

@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 final class Checkbox extends Input implements Element
 {
+    public string $type = 'checkbox';
     public function toData($value): array
     {
         return [

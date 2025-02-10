@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
 final class Select extends SingleSelectFromList
 {
+    public string $type = 'select';
     public function __construct(
         public string $label,
         public string $key,

@@ -4,6 +4,7 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 final class Table extends Input
 {
+    public string $type = 'table';
     public function __construct(
         public string $label,
         public string $key,

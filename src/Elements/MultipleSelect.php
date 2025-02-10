@@ -4,6 +4,7 @@ use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
 
 final class MultipleSelect extends MultipleSelectFromList
 {
+    public string $type = 'select';
     public function __construct(
         public string $label,
         public string $key,

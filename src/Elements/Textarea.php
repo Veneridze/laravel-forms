@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\Input;
 
 class Textarea extends Input implements Element
 {
+    public string $type = 'textarea';
     public function __construct(
         public string $label,
         public string $key,

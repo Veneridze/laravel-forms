@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
 final class Radio extends SingleSelectFromList
 {
+    public string $type = 'radio';
     public function __construct(
         public string $label,
         public string $key,

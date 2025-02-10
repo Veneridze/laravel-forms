@@ -15,6 +15,7 @@ final class TimeRange extends Input implements Element
     //     ];
     // }
 
+    public string $type = 'timerange';
     public function __construct(
         public string $label,
         public string $startKey,

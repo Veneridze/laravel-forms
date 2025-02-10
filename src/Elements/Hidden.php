@@ -3,6 +3,7 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 final class Hidden implements Element
 {
+    public string $type = 'hidden';
     public function __construct(
         public string $key,
         public ?string $label = null,

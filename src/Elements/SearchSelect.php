@@ -5,6 +5,7 @@ use Veneridze\LaravelForms\UI\Card;
 
 final class SearchSelect extends MultipleSelectFromList
 {
+    public string $type = 'searchselect';
     public function __construct(
         public string $label,
         public string $key,
