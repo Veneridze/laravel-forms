@@ -32,7 +32,7 @@ final class TimeRange extends Input implements Element
         if ($this->step) {
             // $hours = substr("00" . ($this->step / 60), 0, 2);
             // $minutes = substr("00" . ($this->step % 60), 0, 2);
-            $hours = $this->step / 60;
+            $hours = floor($this->step / 60);
             $minutes = $this->step % 60;
         }
         return [
