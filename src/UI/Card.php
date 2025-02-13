@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 final class Card implements Arrayable
 {
     public function __construct(
-        public int $id,
+        public string|int $id,
         public string $label,
         public ?string $hint = null,
         public ?string $icon = null,
