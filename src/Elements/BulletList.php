@@ -3,9 +3,9 @@ namespace Veneridze\LaravelForms\Elements;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\Input;
 
-class Textarea extends Input implements Element
+class BulletList extends Input implements Element
 {
-    public string $type = 'textarea';
+    public string $type = 'bulletlist';
     public function __construct(
         public string $label,
         public string $key,
@@ -22,13 +22,13 @@ class Textarea extends Input implements Element
     public function toArray(): array
     {
         return [
-            'type' => 'textarea',
+            'type' => $this->type,
             'mask' => $this->mask,
+            'maxlength' => $this->maxlength,
+            'placeholder' => $this->placeholder,
             'label' => $this->label,
             'icon' => $this->icon,
-            'maxlength' => $this->maxlength,
             'disabled' => $this->disabled,
-            'placeholder' => $this->placeholder,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset
