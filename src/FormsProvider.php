@@ -12,12 +12,13 @@ class FormsProvider extends PackageServiceProvider
         $package
             ->name('laravel-forms')
             //->hasConfigFile()
+            ->hasRoute('form')
             ->publishesServiceProvider('FormsProvider')
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 //$command
-                    //->publishConfigFile()
-                    //->publishMigrations()
-                    //->copyAndRegisterServiceProviderInApp();
+                //->publishConfigFile()
+                //->publishMigrations()
+                //->copyAndRegisterServiceProviderInApp();
             });
     }
 
@@ -28,6 +29,6 @@ class FormsProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        
+
     }
 }

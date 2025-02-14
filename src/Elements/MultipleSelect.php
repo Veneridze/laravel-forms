@@ -8,6 +8,7 @@ final class MultipleSelect extends MultipleSelectFromList
     public function __construct(
         public string $label,
         public string $key,
+        public bool $checkboxes = false,
         public bool $disabled = false,
         public array $options = [],
         public array $displayifset = [],
@@ -23,6 +24,7 @@ final class MultipleSelect extends MultipleSelectFromList
             'type' => 'select',
             'multiple' => true,
             'disabled' => $this->disabled,
+            'checkboxes' => $this->checkboxes,
             'label' => $this->label,
             'icon' => $this->icon,
             'options' => $this->options,
