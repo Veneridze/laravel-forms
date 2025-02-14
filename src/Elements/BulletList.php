@@ -15,6 +15,7 @@ class BulletList extends Input implements Element
         public ?string $prefix = null,
         public ?string $mask = null,
         public ?int $maxlength = null,
+        public ?int $max = null,
         public ?string $placeholder = null,
         public ?string $icon = null
     ) {
@@ -25,6 +26,7 @@ class BulletList extends Input implements Element
             'type' => $this->type,
             'mask' => $this->mask,
             'maxlength' => $this->maxlength,
+            'max' => $this->max,
             'placeholder' => $this->placeholder,
             'label' => $this->label,
             'icon' => $this->icon,
