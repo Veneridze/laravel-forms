@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use Veneridze\LaravelDocuments\DocumentFactory;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-Route::middleware('auth')->prefix('forms')->name('forms.')->group(function () {
+Route::middleware(['auth', 'web'])->prefix('forms')->name('forms.')->group(function () {
 
     Route::resource('draft', DraftController::class);
     Route::post('/table/parse', function (Request $request) {

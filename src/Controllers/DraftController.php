@@ -1,8 +1,7 @@
 <?php
+namespace Veneridze\LaravelForms\Controllers;
 
-namespace App\Http\Controllers;
-
-use App\Models\Draft;
+use Veneridze\LaravelForms\Models\Draft;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
