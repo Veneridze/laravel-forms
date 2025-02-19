@@ -3,8 +3,11 @@
 namespace Veneridze\LaravelForms;
 
 
+use App\Models\Draft;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 use Veneridze\LaravelForms\Attributes\Name;
 use Veneridze\LaravelForms\Interfaces\Element;
@@ -90,6 +93,20 @@ class Form extends Data
         ];
     }
 
+    public function drafts(): Collection
+    {
+        return Draft::
+            where('form', static::class)
+            ->where(function (Builder $query) {
+                $query->where('created_by', Auth::id())
+                    ->orWhere('public', 1);
+            })
+            ->get()
+            ->map(fn(Draft $draft) => [
+                'id' => $draft->id,
+                'name' => $draft->name
+            ]);
+    }
     public function post(): Model
     {
         $role = Auth::user();

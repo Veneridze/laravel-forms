@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91e5f8a6e71790cc60c36a0c461846d5",
+    "content-hash": "3065a3aac5b4e7d6f83de70f3778e5dd",
     "packages": [
         {
             "name": "amphp/amp",
@@ -7403,6 +7403,62 @@
             "time": "2024-12-21T16:25:41+00:00"
         },
         {
+            "name": "veneridze/laravel-eloquent-authorable",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Veneridze/laravel-eloquent-authorable.git",
+                "reference": "9dd38239feb27b7c2fb4d280716d50b7e9360542"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Veneridze/laravel-eloquent-authorable/zipball/9dd38239feb27b7c2fb4d280716d50b7e9360542",
+                "reference": "9dd38239feb27b7c2fb4d280716d50b7e9360542",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/database": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.18"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Veneridze\\EloquentAuthorable\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Veneridze\\EloquentAuthorable\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AXN Informatique",
+                    "email": "developpement@axn.fr"
+                },
+                {
+                    "name": "Kopaev",
+                    "email": "viacheslav.kopaev@yandex.ru"
+                }
+            ],
+            "description": "Support for created_by and updated_by fields in Eloquent models. for laravel 8-11",
+            "homepage": "https://github.com/Veneridze/laravel-eloquent-authorable",
+            "support": {
+                "issues": "https://github.com/Veneridze/laravel-eloquent-authorable/issues",
+                "source": "https://github.com/Veneridze/laravel-eloquent-authorable/tree/master"
+            },
+            "time": "2025-02-01T09:09:54+00:00"
+        },
+        {
             "name": "veneridze/laravel-permission",
             "version": "dev-main",
             "source": {
@@ -7674,6 +7730,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "veneridze/laravel-eloquent-authorable": 20,
         "veneridze/laravel-permission": 20
     },
     "prefer-stable": true,
