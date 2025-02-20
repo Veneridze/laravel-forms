@@ -17,7 +17,10 @@ final class Select extends SingleSelectFromList
         public ?string $icon = null
     ) {
     }
-
+    public function toTableData()
+    {
+        return collect($this->options)->pluck('label');
+    }
     public function toArray(): array
     {
         return [

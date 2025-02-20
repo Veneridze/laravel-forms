@@ -7,9 +7,14 @@
         "spatie/laravel-package-tools": "^1.18",
         "veneridze/laravel-permission": "dev-main",
         "phpoffice/phpspreadsheet": "^4.0",
-        "veneridze/laravel-eloquent-authorable": "dev-master"
+        "veneridze/laravel-eloquent-authorable": "dev-master",
+        "veneridze/laravel-documents": "dev-main"
     },
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/veneridze/laravel-documents.git"
+        },
         {
             "type": "vcs",
             "url": "https://github.com/veneridze/laravel-eloquent-authorable.git"

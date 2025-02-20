@@ -1,12 +1,32 @@
 <?php
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Veneridze\LaravelDocuments\DocumentFactory;
 use Veneridze\LaravelForms\Controllers\DraftController;
 
 Route::middleware(['auth', 'web'])->prefix('forms')->name('forms.')->group(function () {
 
     Route::resource('draft', DraftController::class);
+    Route::get('/table', function (Request $request) {
+        abort_if(!$request->query('form'), 400);
+        $form = $request->query('form');
+        $rows = $form::fields();
+        // $result = [];
+        $fieldHeaders = [];
+        foreach ($rows as $row) {
+            foreach ($row as $field) {
+                $fieldHeaders[] = $field->label;
+            }
+        }
+        return response()->download(DocumentFactory::table(
+            [],
+            $fieldHeaders,
+            false,
+            $form::toTableValidation()
+        ), "Шаблон.xlsx");
+    });
     Route::post('/table/parse', function (Request $request) {
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx']

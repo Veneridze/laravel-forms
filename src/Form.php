@@ -3,6 +3,16 @@
 namespace Veneridze\LaravelForms;
 
 
+use Veneridze\LaravelForms\Elements\Checkbox;
+use Veneridze\LaravelForms\Elements\Date;
+use Veneridze\LaravelForms\Elements\DateRange;
+use Veneridze\LaravelForms\Elements\Option;
+use Veneridze\LaravelForms\Elements\Radio;
+use Veneridze\LaravelForms\Elements\SearchSelect;
+use Veneridze\LaravelForms\Elements\Select;
+use Veneridze\LaravelForms\Elements\Text;
+use Veneridze\LaravelForms\Elements\Textarea;
+use Veneridze\LaravelForms\Elements\TimeRange;
 use Veneridze\LaravelForms\Models\Draft;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -45,6 +55,50 @@ class Form extends Data
         } else {
             return $rows;
         }
+    }
+
+    public static function toTableValidation(): array
+    {
+        $result = [];
+        foreach (static::fields() as $row) {
+            foreach ($row as $field) {
+                if ($field instanceof Radio) {
+                    $result[$field->label] = [
+                        "type" => "radio",
+                        "values" => collect($field->options)->map(fn(Option $option) => $option->label)->all()
+                    ];
+                } elseif ($field instanceof Date || $field instanceof DateRange) {
+                    $result[$field->label] = [
+                        "type" => "date",
+                        "before" => $field->maxdate,
+                        "after" => $field->mindate,
+                    ];
+                } elseif ($field instanceof TimeRange) {
+                    $result[$field->label] = [
+                        "type" => "time",
+                    ];
+                } elseif (($field instanceof Textarea || $field instanceof Text) && $field->maxlength != null) {
+                    $result[$field->label] = [
+                        "type" => "text",
+                        "maxlength" => $field->maxlength
+                    ];
+                } elseif ($field instanceof Select || $field instanceof SearchSelect) {
+                    $result[$field->label] = [
+                        "type" => "select",
+                        "values" => $field->toTableData()->all()
+                    ];
+                } elseif ($field instanceof Checkbox) {
+                    $result[$field->label] = [
+                        "type" => "select",
+                        "values" => [
+                            __('Yes'),
+                            __('No')
+                        ]
+                    ];
+                }
+            }
+        }
+        return $result;
     }
 
     public static function getKeyName(string $form, string $key)
