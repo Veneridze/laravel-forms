@@ -27,9 +27,9 @@ class Number extends Input implements Element
             'max' => $this->max,
             'min' => $this->min,
             'placeholder' => $this->placeholder ?? match (true) {
-                ($this->max && $this->min) => "от {$min} до {$max}",
-                $this->min => "> {$min}",
-                $this->max => "< {$max}",
+                ($this->max && $this->min) => "от {$this->min} до {$this->max}",
+                $this->min => "> {$this->min}",
+                $this->max => "< {$this->max}",
                 default => null
             },
             'label' => $this->label,
