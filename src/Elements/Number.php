@@ -24,8 +24,8 @@ class Number extends Input implements Element
     {
         return [
             'type' => $this->type,
-            'mask' => $this->mask,
-            'maxlength' => $this->maxlength,
+            'max' => $this->max,
+            'min' => $this->min,
             'placeholder' => $this->placeholder ?? match (true) {
                 ($this->max && $this->min) => "от {$min} до {$max}",
                 $this->min => "> {$min}",

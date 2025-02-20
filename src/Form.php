@@ -6,6 +6,7 @@ namespace Veneridze\LaravelForms;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
 use Veneridze\LaravelForms\Elements\DateRange;
+use Veneridze\LaravelForms\Elements\Number;
 use Veneridze\LaravelForms\Elements\Option;
 use Veneridze\LaravelForms\Elements\Radio;
 use Veneridze\LaravelForms\Elements\SearchSelect;
@@ -72,6 +73,12 @@ class Form extends Data
                         "type" => "date",
                         "before" => $field->maxdate,
                         "after" => $field->mindate,
+                    ];
+                } elseif ($field instanceof Number) {
+                    $result[$field->label] = [
+                        "type" => "number",
+                        "min" => $field->min,
+                        "max" => $field->max,
                     ];
                 } elseif ($field instanceof TimeRange) {
                     $result[$field->label] = [
