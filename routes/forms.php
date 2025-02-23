@@ -8,6 +8,7 @@ use Veneridze\LaravelForms\Controllers\DraftController;
 
 Route::middleware(['auth', 'web'])->prefix('forms')->name('forms.')->group(function () {
 
+    Route::put('draft', [DraftController::class, 'reorder']);
     Route::resource('draft', DraftController::class);
     Route::get('/table', function (Request $request) {
         abort_if(!$request->query('form'), 400);

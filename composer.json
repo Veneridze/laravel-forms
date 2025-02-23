@@ -8,7 +8,8 @@
         "veneridze/laravel-permission": "dev-main",
         "phpoffice/phpspreadsheet": "^4.0",
         "veneridze/laravel-eloquent-authorable": "dev-master",
-        "veneridze/laravel-documents": "dev-main"
+        "veneridze/laravel-documents": "dev-main",
+        "spatie/eloquent-sortable": "^4.4"
     },
     "repositories": [
         {

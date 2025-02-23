@@ -28,6 +28,14 @@ class DraftController extends Controller
             ]);
     }
 
+    public function reorder(Request $request)
+    {
+        abort_if(!$request->query('form'), 400);
+        $categories = $request->input('order');
+        Draft::setNewOrder(collect($categories)->pluck('category'));
+        return response();
+    }
+
     public function show(Draft $draft)
     {
         abort_if($draft->createdBy->id != Auth::id() && !$draft->public, 404);

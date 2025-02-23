@@ -3,9 +3,11 @@ namespace Veneridze\LaravelForms\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\EloquentSortable\SortableTrait;
 use Veneridze\EloquentAuthorable\AuthorableTrait;
 class Draft extends Model
 {
+    use SortableTrait;
     use AuthorableTrait;
     protected $table = 'form_drafts';
     protected $guarded = [];
