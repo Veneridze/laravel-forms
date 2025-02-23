@@ -7,6 +7,10 @@ use Spatie\EloquentSortable\SortableTrait;
 use Veneridze\EloquentAuthorable\AuthorableTrait;
 class Draft extends Model
 {
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
     use SortableTrait;
     use AuthorableTrait;
     protected $table = 'form_drafts';

@@ -21,6 +21,7 @@ class DraftController extends Controller
                 $query->where('created_by', Auth::id())
                     ->orWhere('public', 1);
             })
+            ->ordered()
             ->get()
             ->map(fn(Draft $draft) => [
                 'id' => $draft->id,
@@ -32,8 +33,7 @@ class DraftController extends Controller
     {
         abort_if(!$request->query('form'), 400);
         $categories = $request->input('order');
-        Draft::setNewOrder(collect($categories)->pluck('category'));
-        return response();
+        Draft::setNewOrder($categories);
     }
 
     public function show(Draft $draft)
