@@ -11,7 +11,7 @@ class FileList extends Input implements Element
         public string $key,
         public string $source,
         public int $limit = 1,
-        public ?string $accept = null,
+        public ?array $accept = null,
         public array $displayifset = [],
         public array $visibleif = [],
     ) {
