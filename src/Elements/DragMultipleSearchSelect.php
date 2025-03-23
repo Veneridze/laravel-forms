@@ -15,6 +15,7 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
         public ?string $addLink = null,
         public ?array $fields = null,
         public bool $emptyFetch = false,
+        public bool $canSearch = false,
         public array $visibleif = [],
         public array $displayifset = [],
         public ?\Closure $format = null
@@ -28,6 +29,7 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
         return [
             'type' => $this->type,
             'emptyFetch' => $this->emptyFetch,
+            'canSearch' => $this->canSearch,
             'link' => $this->link,
             'fields' => $this->fields,
             'addLink' => $this->addLink,
