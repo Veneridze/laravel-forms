@@ -26,7 +26,7 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
     public function toArray(): array
     {
         return [
-            'type' => 'searchselect',
+            'type' => $this->type,
             'emptyFetch' => $this->emptyFetch,
             'link' => $this->link,
             'fields' => $this->fields,
