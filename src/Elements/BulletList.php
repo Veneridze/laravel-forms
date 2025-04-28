@@ -12,6 +12,7 @@ class BulletList extends Input implements Element
         public bool $disabled = false,
         public array $visibleif = [],
         public array $displayifset = [],
+        public ?array $fields = null,
         public ?string $prefix = null,
         public ?string $mask = null,
         public ?int $maxlength = null,
@@ -25,6 +26,7 @@ class BulletList extends Input implements Element
         return [
             'type' => $this->type,
             'mask' => $this->mask,
+            'fields' => $this->fields,
             'maxlength' => $this->maxlength,
             'max' => $this->max,
             'placeholder' => $this->placeholder,
