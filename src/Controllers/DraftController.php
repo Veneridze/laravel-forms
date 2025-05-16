@@ -17,6 +17,10 @@ class DraftController extends Controller
         abort_if(!$request->query('form'), 400);
         return Draft::
             where('form', $request->query('form'))
+            ->where(function (Builder $query) {
+                $query->where('created_by', Auth::id())
+                    ->orWhere('public', 1);
+            })
             ->ordered()
             ->get()
             ->map(fn(Draft $draft) => [
