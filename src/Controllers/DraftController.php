@@ -68,7 +68,7 @@ class DraftController extends Controller
      */
     public function destroy(Draft $draft)
     {
-        abort_if($draft->createdBy()->id != Auth::id() && !$draft->public, 404);
+        // abort_if($draft->createdBy()->id != Auth::id() && !$draft->public, 404);
         $draft->deleteOrFail();
         return response(null, 201);
     }
