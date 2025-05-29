@@ -3,6 +3,7 @@
 namespace Veneridze\LaravelForms;
 
 
+use Exception;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
 use Veneridze\LaravelForms\Elements\DateRange;
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use function GuzzleHttp\json_encode;
 
 class Form extends Data
 {
@@ -120,10 +122,41 @@ class Form extends Data
         }
         foreach ($form::fields('view') as $row) {
             foreach ($row as $field) {
-                Arr::set($result, $field->key, $field->label);
+                Arr::set($result, $field->key ?? $field->startKey, $field->label);
             }
         }
         return Arr::get($result, $key, null);
+    }
+
+    public static function formatByKey(string $form, string $key, $value)
+    {
+        $result = [];
+        foreach ($form::fields('view') as $row) {
+            foreach ($row as $field) {
+                $result[$field->key ?? $field->startKey] = $field;
+            }
+        }
+        $fieldObj = $result[$key];
+        // throw new Exception(json_encode($result[$key], JSON_UNESCAPED_UNICODE));
+        return $fieldObj && method_exists($fieldObj, 'getRawValue') ? $fieldObj->getRawValue($value) : $value;
+    }
+
+    public static function getKeyByLabel(string $form, string $label)
+    {
+        $result = [];
+        $reflect = new ReflectionClass($form);
+        foreach ($reflect->getProperties() as $property) {
+            foreach ($property->getAttributes(Name::class) as $attribute) {
+                $propertyName = $property->getName();
+                Arr::set($result, $propertyName, $attribute->getArguments()[0]);
+            }
+        }
+        foreach ($form::fields('view') as $row) {
+            foreach ($row as $field) {
+                Arr::set($result, $field->label, $field->key ?? $field->startKey);
+            }
+        }
+        return Arr::get($result, $label, null);
     }
 
     public static function toData(Form $form): array

@@ -46,6 +46,6 @@ class TimeSelect extends Input implements Element
 
     public function getRawValue($label)
     {
-        return $label;
+        return trim($label);
     }
 }
