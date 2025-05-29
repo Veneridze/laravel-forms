@@ -18,9 +18,8 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
         public bool $canSearch = false,
         public array $visibleif = [],
         public array $displayifset = [],
-        public ?\Closure $format = null
-        //public ?string $placeholder = null,
-        //public ?string $icon = null
+        public ?\Closure $format = null,
+        public bool $required = false
     ) {
     }
 
@@ -28,6 +27,7 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
     {
         return [
             'type' => $this->type,
+            'required' => $this->required,
             'emptyFetch' => $this->emptyFetch,
             'canSearch' => $this->canSearch,
             'link' => $this->link,

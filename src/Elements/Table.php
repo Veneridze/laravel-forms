@@ -14,9 +14,7 @@ final class Table extends Input
         public array $visibleif = [],
         public array $displayifset = [],
         public bool $changeRows = true,
-        //public array $options = [],
-        //public ?string $placeholder = null,
-        //public ?string $icon = null
+        public bool $required = false,
     ) {
     }
 
@@ -27,12 +25,11 @@ final class Table extends Input
             'label' => $this->label,
             'key' => $this->key,
             'disabled' => $this->disabled,
+            'required' => $this->required,
             'columns' => $this->columns,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset,
             'changeRows' => $this->changeRows,
-            //'icon' => $this->icon,
-            //'options' => $this->options,
         ];
     }
 

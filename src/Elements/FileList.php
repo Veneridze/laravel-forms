@@ -14,12 +14,14 @@ class FileList extends Input implements Element
         public ?array $accept = null,
         public array $displayifset = [],
         public array $visibleif = [],
+        public bool $required = false
     ) {
     }
     public function toArray(): array
     {
         return [
             'type' => 'filelist',
+            'required' => $this->required,
             'label' => $this->label,
             'accept' => $this->accept,
             'source' => $this->source,

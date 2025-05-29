@@ -10,6 +10,7 @@ class Text extends Input implements Element
         public string $label,
         public string $key,
         public bool $disabled = false,
+        public bool $required = false,
         public string $type = 'text',
         public array $visibleif = [],
         public array $displayifset = [],
@@ -30,6 +31,7 @@ class Text extends Input implements Element
             'label' => $this->label,
             'icon' => $this->icon,
             'disabled' => $this->disabled,
+            'required' => $this->required,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset

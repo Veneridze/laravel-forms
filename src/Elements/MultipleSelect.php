@@ -15,6 +15,7 @@ final class MultipleSelect extends MultipleSelectFromList
         public array $displayifset = [],
         public array $visibleif = [],
         public ?string $placeholder = null,
+        public bool $required = false,
         public ?string $icon = null
     ) {
     }
@@ -25,6 +26,7 @@ final class MultipleSelect extends MultipleSelectFromList
             'type' => 'select',
             'multiple' => true,
             'disabled' => $this->disabled,
+            'required' => $this->required,
             'checkboxes' => $this->checkboxes,
             'label' => $this->label,
             'icon' => $this->icon,

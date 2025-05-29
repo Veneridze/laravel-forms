@@ -28,12 +28,14 @@ final class Date extends Input implements Element
         public ?Carbon $mindate = null,
         public ?Carbon $maxdate = null,
         public ?string $default = null,
+        public bool $required = false
     ) {
     }
     public function toArray(): array
     {
         return [
             'type' => $this->type,
+            'required' => $this->required,
             'disabled' => $this->disabled,
             'label' => $this->label,
             'key' => $this->key,

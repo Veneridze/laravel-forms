@@ -20,9 +20,8 @@ final class SearchSelect extends MultipleSelectFromList
         public array $linkIncludes = [],
         public array $visibleif = [],
         public array $displayifset = [],
-        public ?\Closure $tableData = null
-        //public ?string $placeholder = null,
-        //public ?string $icon = null
+        public ?\Closure $tableData = null,
+        public bool $required = false
     ) {
     }
     public function toTableData(): Collection
@@ -44,6 +43,7 @@ final class SearchSelect extends MultipleSelectFromList
             'fields' => $this->fields,
             'addLink' => $this->addLink,
             'linkIncludes' => $this->linkIncludes,
+            'required' => $this->required,
             'label' => $this->label,
             'canSearch' => $this->canSearch,
             'key' => $this->key,

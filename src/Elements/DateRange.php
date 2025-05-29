@@ -21,13 +21,14 @@ final class DateRange extends Input implements Element
         public ?bool $holidays = true,
         public ?Carbon $mindate = null,
         public ?Carbon $maxdate = null,
-        // public ?string $default = null,
+        public bool $required = false
     ) {
     }
     public function toArray(): array
     {
         return [
             'type' => 'daterange',
+            'required' => $this->required,
             'disabled' => $this->disabled,
             'label' => $this->label,
             'startKey' => $this->startKey,

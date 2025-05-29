@@ -9,6 +9,7 @@ final class Hidden implements Element
         public ?string $label = null,
         public ?string $value = null,
         public bool $disabled = false,
+        public bool $required = false
     ) {
     }
 
@@ -28,6 +29,7 @@ final class Hidden implements Element
     {
         return [
             'type' => 'hidden',
+            'required' => $this->required,
             'disabled' => $this->disabled,
             'key' => $this->key,
             'value' => $this->value

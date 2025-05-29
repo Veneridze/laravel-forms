@@ -15,6 +15,7 @@ class Number extends Input implements Element
         public array $displayifset = [],
         public ?string $prefix = null,
         public ?string $postfix = null,
+        public bool $required = false,
         public ?int $max = null,
         public ?int $min = null,
         public ?string $placeholder = null,
@@ -25,6 +26,7 @@ class Number extends Input implements Element
     {
         return [
             'type' => $this->type,
+            'required' => $this->required,
             'max' => $this->max,
             'min' => $this->min,
             'placeholder' => $this->placeholder ?? match (true) {

@@ -15,6 +15,7 @@ final class Select extends SingleSelectFromList
         public array $visibleif = [],
         public array $displayifset = [],
         public ?string $placeholder = null,
+        public bool $required = false,
         public ?string $icon = null
     ) {
     }
@@ -30,6 +31,7 @@ final class Select extends SingleSelectFromList
             'label' => $this->label,
             'icon' => $this->icon,
             'options' => $this->options,
+            'required' => $this->required,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset

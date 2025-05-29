@@ -13,12 +13,14 @@ class File extends Input implements Element
         public bool $disabled = false,
         public array $displayifset = [],
         public array $visibleif = [],
+        public bool $required = false
     ) {
     }
     public function toArray(): array
     {
         return [
             'type' => 'file',
+            'required' => $this->required,
             'label' => $this->label,
             'accept' => $this->accept,
             'disabled' => $this->disabled,

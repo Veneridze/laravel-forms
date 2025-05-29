@@ -21,12 +21,14 @@ final class Checkbox extends Input implements Element
         public ?string $placeholder = null,
         public array $visibleif = [],
         public array $displayifset = [],
+        public bool $required = false
     ) {
     }
     public function toArray(): array
     {
         return [
             'type' => 'checkbox',
+            'required' => $this->required,
             'disabled' => $this->disabled,
             'label' => $this->label,
             'key' => $this->key,

@@ -19,7 +19,8 @@ class BulletList extends Input implements Element
         public ?int $maxlength = null,
         public ?int $max = null,
         public ?string $placeholder = null,
-        public ?string $icon = null
+        public ?string $icon = null,
+        public bool $required = false
     ) {
     }
     public function toArray(): array

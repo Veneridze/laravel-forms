@@ -17,6 +17,7 @@ final class Radio extends SingleSelectFromList
         public array $visibleif = [],
         public array $displayifset = [],
         public ?string $placeholder = null,
+        public bool $required = false,
         public ?string $icon = null
     ) {
     }
@@ -34,6 +35,7 @@ final class Radio extends SingleSelectFromList
         return [
             'type' => 'radio',
             'disabled' => $this->disabled,
+            'required' => $this->required,
             'label' => $this->label,
             'style' => $this->style,
             'icon' => $this->icon,
