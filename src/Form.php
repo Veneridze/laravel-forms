@@ -71,46 +71,55 @@ class Form extends Data
                 if ($field instanceof Radio) {
                     $result[$field->label] = [
                         "type" => "radio",
+                        "required" => $field->required,
                         "values" => collect($field->options)->map(fn(Option $option) => $option->label)->all()
                     ];
                 } elseif ($field instanceof Date || $field instanceof DateRange) {
                     $result[$field->label] = [
                         "type" => "date",
+                        "required" => $field->required,
                         "before" => $field->maxdate,
                         "after" => $field->mindate,
                     ];
                 } elseif ($field instanceof Number) {
                     $result[$field->label] = [
                         "type" => "number",
+                        "required" => $field->required,
                         "min" => $field->min,
                         "max" => $field->max,
                     ];
                 } elseif ($field instanceof TimeSelect) {
                     $result[$field->label] = [
                         "type" => "time",
+                        "required" => $field->required,
                     ];
                 } elseif ($field instanceof BulletList) {
                     $result[$field->label] = [
                         "type" => "multiple",
+                        "required" => $field->required,
                     ];
                 } elseif ($field instanceof MultipleSelect) {
                     $result[$field->label] = [
                         "type" => "multiple",
+                        "required" => $field->required,
                         "options" => $field->options
                     ];
                 } elseif (($field instanceof Textarea || $field instanceof Text) && $field->maxlength != null) {
                     $result[$field->label] = [
                         "type" => "text",
+                        "required" => $field->required,
                         "maxlength" => $field->maxlength
                     ];
                 } elseif ($field instanceof Select || $field instanceof SearchSelect) {
                     $result[$field->label] = [
                         "type" => "select",
+                        "required" => $field->required,
                         "values" => $field->toTableData()->all()
                     ];
                 } elseif ($field instanceof Checkbox) {
                     $result[$field->label] = [
                         "type" => "select",
+                        "required" => $field->required,
                         "values" => [
                             __('Yes'),
                             __('No')
