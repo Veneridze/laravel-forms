@@ -51,4 +51,8 @@ final class SearchSelect extends MultipleSelectFromList
             'displayifset' => $this->displayifset
         ];
     }
+    public function getRawValue($label)
+    {
+        return $label;
+    }
 }

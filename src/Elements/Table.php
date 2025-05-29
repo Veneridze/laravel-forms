@@ -34,4 +34,9 @@ final class Table extends Input
             //'options' => $this->options,
         ];
     }
+
+    public function getRawValue($label)
+    {
+        return trim($label);
+    }
 }

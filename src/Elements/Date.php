@@ -44,4 +44,8 @@ final class Date extends Input implements Element
             'default' => $this->default ?? null
         ];
     }
+    public function getRawValue($label)
+    {
+        return $label;
+    }
 }

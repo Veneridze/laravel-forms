@@ -42,4 +42,9 @@ final class Radio extends SingleSelectFromList
             'visibleif' => $this->visibleif
         ];
     }
+    public function getRawValue($label)
+    {
+        $opt = collect($this->options)->filter(fn(Option $op) => $op->label == trim($label))->first();
+        return $opt ? $opt->value : null;
+    }
 }

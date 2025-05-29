@@ -33,4 +33,12 @@ final class MultipleSelect extends MultipleSelectFromList
             'visibleif' => $this->visibleif
         ];
     }
+    public function getRawValue($label)
+    {
+        return collect($this->options)
+            ->filter(fn(Option $op) => $op->label == trim($label))
+            ->values()
+            ->map(fn(Option $op) => $op->value)
+            ->all();
+    }
 }

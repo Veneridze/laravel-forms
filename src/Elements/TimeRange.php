@@ -46,4 +46,9 @@ final class TimeRange extends Input implements Element
             'displayifset' => $this->displayifset,
         ];
     }
+
+    public function getRawValue($label)
+    {
+        return trim($label);
+    }
 }

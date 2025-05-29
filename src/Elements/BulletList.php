@@ -38,4 +38,8 @@ class BulletList extends Input implements Element
             'displayifset' => $this->displayifset
         ];
     }
+    public function getRawValue($label)
+    {
+        return $label;
+    }
 }
