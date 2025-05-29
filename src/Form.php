@@ -104,13 +104,13 @@ class Form extends Data
                         "required" => $field->required,
                         "options" => $field->options
                     ];
-                } elseif (($field instanceof Textarea || $field instanceof Text) && $field->maxlength != null) {
+                } elseif (($field instanceof Textarea || $field instanceof Text || $field instanceof SearchSelect) && $field->maxlength != null) {
                     $result[$field->label] = [
                         "type" => "text",
                         "required" => $field->required,
                         "maxlength" => $field->maxlength
                     ];
-                } elseif ($field instanceof Select || $field instanceof SearchSelect) {
+                } elseif ($field instanceof Select) {
                     $result[$field->label] = [
                         "type" => "select",
                         "required" => $field->required,
