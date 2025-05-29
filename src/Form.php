@@ -4,9 +4,11 @@ namespace Veneridze\LaravelForms;
 
 
 use Exception;
+use Veneridze\LaravelForms\Elements\BulletList;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
 use Veneridze\LaravelForms\Elements\DateRange;
+use Veneridze\LaravelForms\Elements\MultipleSelect;
 use Veneridze\LaravelForms\Elements\Number;
 use Veneridze\LaravelForms\Elements\Option;
 use Veneridze\LaravelForms\Elements\Radio;
@@ -15,6 +17,7 @@ use Veneridze\LaravelForms\Elements\Select;
 use Veneridze\LaravelForms\Elements\Text;
 use Veneridze\LaravelForms\Elements\Textarea;
 use Veneridze\LaravelForms\Elements\TimeRange;
+use Veneridze\LaravelForms\Elements\TimeSelect;
 use Veneridze\LaravelForms\Models\Draft;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -82,9 +85,18 @@ class Form extends Data
                         "min" => $field->min,
                         "max" => $field->max,
                     ];
-                } elseif ($field instanceof TimeRange) {
+                } elseif ($field instanceof TimeSelect) {
                     $result[$field->label] = [
                         "type" => "time",
+                    ];
+                } elseif ($field instanceof BulletList) {
+                    $result[$field->label] = [
+                        "type" => "multiple",
+                    ];
+                } elseif ($field instanceof MultipleSelect) {
+                    $result[$field->label] = [
+                        "type" => "multiple",
+                        "options" => $field->options
                     ];
                 } elseif (($field instanceof Textarea || $field instanceof Text) && $field->maxlength != null) {
                     $result[$field->label] = [

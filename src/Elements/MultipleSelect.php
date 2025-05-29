@@ -1,5 +1,6 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
 
 final class MultipleSelect extends MultipleSelectFromList
@@ -36,7 +37,7 @@ final class MultipleSelect extends MultipleSelectFromList
     public function getRawValue($label)
     {
         return collect($this->options)
-            ->filter(fn(Option $op) => $op->label == trim($label))
+            ->filter(fn(Option $op) => Str::lower($op->label) == trim(Str::lower($label)))
             ->values()
             ->map(fn(Option $op) => $op->value)
             ->all();

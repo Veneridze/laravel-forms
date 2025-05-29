@@ -1,5 +1,6 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
@@ -44,7 +45,7 @@ final class Radio extends SingleSelectFromList
     }
     public function getRawValue($label)
     {
-        $opt = collect($this->options)->filter(fn(Option $op) => $op->label == trim($label))->first();
+        $opt = collect($this->options)->filter(fn(Option $op) => Str::lower($op->label) == trim(Str::lower($label)))->first();
         return $opt ? $opt->value : null;
     }
 }

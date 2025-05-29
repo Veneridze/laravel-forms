@@ -1,5 +1,6 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Prototype\Input;
 
 final class Table extends Input
@@ -37,6 +38,6 @@ final class Table extends Input
 
     public function getRawValue($label)
     {
-        return trim($label);
+        return trim(Str::lower($label));
     }
 }

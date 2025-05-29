@@ -1,5 +1,6 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\Input;
 
@@ -40,6 +41,6 @@ class BulletList extends Input implements Element
     }
     public function getRawValue($label)
     {
-        return $label;
+        return Str::lower($label);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Veneridze\LaravelForms\Elements;
 
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Interfaces\Element;
 use Carbon\Carbon;
 use Veneridze\LaravelForms\Prototype\Input;
@@ -41,6 +42,6 @@ final class DateRange extends Input implements Element
     }
     public function getRawValue($label)
     {
-        return $label;
+        return Str::lower($label);
     }
 }
