@@ -27,6 +27,7 @@ class BulletList extends Input implements Element
     {
         return [
             'type' => $this->type,
+            'required' => $this->required,
             'mask' => $this->mask,
             'fields' => $this->fields,
             'maxlength' => $this->maxlength,
