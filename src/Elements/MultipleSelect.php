@@ -38,8 +38,11 @@ final class MultipleSelect extends MultipleSelectFromList
     }
     public function getRawValue($label)
     {
+        $values = explode(';', $label);
+        $values = array_map('trim', $values);
+        $values = array_map('mb_strtolower', $values);
         return collect($this->options)
-            ->filter(fn(Option $op) => Str::lower($op->label) == trim(Str::lower($label)))
+            ->filter(fn(Option $op) => in_array(Str::lower($op->label), $values))
             ->values()
             ->map(fn(Option $op) => $op->value)
             ->all();

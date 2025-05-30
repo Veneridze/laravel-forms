@@ -170,13 +170,13 @@ class Form extends Data
     public static function getKeyByLabel(string $form, string $label)
     {
         $result = [];
-        $reflect = new ReflectionClass($form);
-        foreach ($reflect->getProperties() as $property) {
-            foreach ($property->getAttributes(Name::class) as $attribute) {
-                $propertyName = $property->getName();
-                Arr::set($result, $propertyName, $attribute->getArguments()[0]);
-            }
-        }
+        // $reflect = new ReflectionClass($form);
+        // foreach ($reflect->getProperties() as $property) {
+        //     foreach ($property->getAttributes(Name::class) as $attribute) {
+        //         $propertyName = $property->getName();
+        //         Arr::set($result, $propertyName, $attribute->getArguments()[0]);
+        //     }
+        // }
         foreach ($form::fields('view') as $row) {
             foreach ($row as $field) {
                 Arr::set($result, $field->label, $field->key ?? $field->startKey);

@@ -43,6 +43,8 @@ class BulletList extends Input implements Element
     }
     public function getRawValue($label)
     {
-        return Str::lower($label);
+        $values = explode(';', $label);
+        $values = array_map('trim', $values);
+        return $values;
     }
 }
