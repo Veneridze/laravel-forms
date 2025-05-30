@@ -146,18 +146,27 @@ class Form extends Data
                 Arr::set($result, $propertyName, $attribute->getArguments()[0]);
             }
         }
-        foreach ($form::fields('view') as $row) {
+        foreach (static::fields('view') as $row) {
             foreach ($row as $field) {
-                Arr::set($result, $field->key ?? $field->startKey, $field->label);
+                if (($field->key ?? $field->startKey) == $key) {
+                    return $field->label;
+                }
             }
         }
-        return Arr::get($result, $key, null);
+        return null;
+
+        // foreach ($form::fields('view') as $row) {
+        //     foreach ($row as $field) {
+        //         Arr::set($result, $field->key ?? $field->startKey, $field->label);
+        //     }
+        // }
+        // return Arr::get($result, $key, null);
     }
 
-    public static function formatByKey(string $form, string $key, $value)
+    public static function formatByKey(string $key, $value)
     {
         $result = [];
-        foreach ($form::fields('view') as $row) {
+        foreach (static::fields('view') as $row) {
             foreach ($row as $field) {
                 $result[$field->key ?? $field->startKey] = $field;
             }
@@ -167,22 +176,16 @@ class Form extends Data
         return $fieldObj && method_exists($fieldObj, 'getRawValue') ? $fieldObj->getRawValue($value) : $value;
     }
 
-    public static function getKeyByLabel(string $form, string $label)
+    public static function getKeyByLabel(array $fields, string $label)
     {
-        $result = [];
-        // $reflect = new ReflectionClass($form);
-        // foreach ($reflect->getProperties() as $property) {
-        //     foreach ($property->getAttributes(Name::class) as $attribute) {
-        //         $propertyName = $property->getName();
-        //         Arr::set($result, $propertyName, $attribute->getArguments()[0]);
-        //     }
-        // }
-        foreach ($form::fields('view') as $row) {
+        foreach ($fields as $row) {
             foreach ($row as $field) {
-                Arr::set($result, $field->label, $field->key ?? $field->startKey);
+                if ($field->label == $label) {
+                    return $field->key ?? $field->startKey;
+                }
             }
         }
-        return Arr::get($result, $label, null);
+        return null;
     }
 
     public static function toData(Form $form): array
@@ -278,7 +281,7 @@ class Form extends Data
 
     public static function getWithRelations(Model $model)
     {
-        $basic = self::from($model)->toArray();
+        $basic = static::from($model)->toArray();
         $info = ModelInfo::forModel($model);
         foreach ($info->relations as $relation) {
             $name = $relation->name;
