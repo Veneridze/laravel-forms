@@ -296,6 +296,14 @@ class Form extends Data
         return $basic;
     }
 
+    public static function compareString(string $str)
+    {
+        return str_replace(
+            ['ё', 'Ё', 'й', 'Й'],
+            ['е', 'Е', 'и', 'И'],
+            $str
+        );
+    }
     private function updateRelationShips(Model $model, $data)
     {
         //static::$model = static::class;

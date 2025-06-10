@@ -1,6 +1,7 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
 use Illuminate\Support\Str;
+use Veneridze\LaravelForms\Form;
 use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
 
 final class MultipleSelect extends MultipleSelectFromList
@@ -41,8 +42,9 @@ final class MultipleSelect extends MultipleSelectFromList
         $values = explode(';', $label);
         $values = array_map('trim', $values);
         $values = array_map('mb_strtolower', $values);
+        $values = array_map(fn($value) => Form::compareString($value), $values);
         return collect($this->options)
-            ->filter(fn(Option $op) => in_array(Str::lower($op->label), $values))
+            ->filter(fn(Option $op) => in_array(Form::compareString(Str::lower($op->label)), $values))
             ->values()
             ->map(fn(Option $op) => $op->value)
             ->all();
