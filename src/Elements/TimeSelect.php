@@ -10,7 +10,7 @@ class TimeSelect extends Input implements Element
     public function __construct(
         public string $label,
         public string $key,
-        public ?int $step = null,
+        public $step = null,
         public ?int $started = null,
         public ?int $ended = null,
         public bool $disabled = false,
@@ -22,7 +22,7 @@ class TimeSelect extends Input implements Element
     }
     public function toArray(): array
     {
-        if ($this->step) {
+        if ($this->step && is_numeric($this->step)) {
             $hours = $this->step / 60;
             $minutes = $this->step % 60;
         }
