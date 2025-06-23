@@ -27,7 +27,7 @@ Route::middleware(['auth', 'web'])->prefix('forms')->name('forms.')->group(funct
             false,
             $form::toTableValidation(),
             method_exists($form, 'columnWidth') ? $form::columnWidth() : []
-        ), "Шаблон.xlsx");
+        ), __('File').".xlsx");
     });
     Route::post('/table/parse', function (Request $request) {
         $request->validate([
