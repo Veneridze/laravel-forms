@@ -10,7 +10,9 @@ class File extends Input implements Element
         public string $label,
         public string $key,
         public ?string $accept = null,
+        public int $limit = 1,
         public bool $disabled = false,
+        public bool $multiple = false,
         public array $displayifset = [],
         public array $visibleif = [],
         public bool $required = false
@@ -22,6 +24,8 @@ class File extends Input implements Element
             'type' => 'file',
             'required' => $this->required,
             'label' => $this->label,
+            'multiple' => $this->multiple,
+            'limit' => $this->limit,
             'accept' => $this->accept,
             'disabled' => $this->disabled,
             'key' => $this->key,
