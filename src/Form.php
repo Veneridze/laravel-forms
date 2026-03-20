@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use function GuzzleHttp\json_encode;
+use Spatie\ModelInfo\Relations\RelationFinder;
 
 class Form extends Data
 {
@@ -309,8 +309,8 @@ class Form extends Data
     public static function getWithRelations(Model $model)
     {
         $basic = static::from($model)->toArray();
-        $info = ModelInfo::forModel($model);
-        foreach ($info->relations as $relation) {
+        $relations = RelationFinder::forModel($model);
+        foreach ($relations as $relation) {
             $name = $relation->name;
             $basic[$name] = match ($relation->type) {
                 BelongsToMany::class => RelationData::collect($model->$name)->toArray(),
@@ -334,8 +334,8 @@ class Form extends Data
     private function updateRelationShips(Model $model, $data)
     {
         //static::$model = static::class;
-        $info = ModelInfo::forModel($model);
-        foreach ($info->relations as $relation) {
+        $relations = RelationFinder::forModel($model);
+        foreach ($relations as $relation) {
             $name = $relation->name;
             if (array_key_exists($name, $data)) {
                 if ($relation->type != BelongsTo::class) {
