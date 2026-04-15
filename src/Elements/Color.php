@@ -15,6 +15,8 @@ class Color extends Input implements Element
         public bool $disabled = false,
         public bool $required = false,
         public array $visibleif = [],
+        public array $macros = [],
+        public array $actions = [],
         public array $displayifset = [],
 
     ) {
@@ -30,6 +32,8 @@ class Color extends Input implements Element
             'required' => $this->required,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

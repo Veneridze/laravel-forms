@@ -21,6 +21,8 @@ final class Checkbox extends Input implements Element
         public ?string $placeholder = null,
         public array $visibleif = [],
         public array $displayifset = [],
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false
     ) {
     }
@@ -33,6 +35,8 @@ final class Checkbox extends Input implements Element
             'label' => $this->label,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'actions' => $this->actions,
+            'macros' => $this->macros,
             'displayifset' => $this->displayifset
         ];
     }

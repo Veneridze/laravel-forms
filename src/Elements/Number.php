@@ -19,6 +19,8 @@ class Number extends Input implements Element
         public ?int $max = null,
         public ?int $min = null,
         public ?string $placeholder = null,
+        public array $macros = [],
+        public array $actions = [],
         public ?string $icon = null
     ) {
     }
@@ -40,6 +42,8 @@ class Number extends Input implements Element
             'disabled' => $this->disabled,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }
@@ -47,6 +51,21 @@ class Number extends Input implements Element
     {
         return trim(Str::lower($label));
     }
+
+
+    public function validate($value): bool
+    {
+
+            if ($this->min && $value < $this->min) {
+                return false;
+            }
+
+            if ($this->max && $value > $this->max) {
+                return false;
+            }
+            return true;
+    }
+
 
     public function getFormatValue(string|int $value)
     {

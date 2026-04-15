@@ -18,7 +18,9 @@ class Textarea extends Input implements Element
         public ?string $mask = null,
         public ?int $maxlength = null,
         public ?string $placeholder = null,
-        public ?string $icon = null
+        public ?string $icon = null,
+        public ?array $macros = [],
+        public ?array $actions = [],
     ) {
     }
     public function toArray(): array
@@ -34,10 +36,19 @@ class Textarea extends Input implements Element
             'placeholder' => $this->placeholder,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }
 
+
+    public function validate($value): bool {
+        if($this->maxlength) {
+            return mb_strlen($value) <= $this->maxlength; 
+        }
+        return true;
+    }
     public function getRawValue($label)
     {
         return trim(Str::lower($label));

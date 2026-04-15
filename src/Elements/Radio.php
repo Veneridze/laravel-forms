@@ -2,7 +2,6 @@
 namespace Veneridze\LaravelForms\Elements;
 use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Form;
-use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
 
 final class Radio extends SingleSelectFromList
@@ -19,7 +18,9 @@ final class Radio extends SingleSelectFromList
         public array $displayifset = [],
         public ?string $placeholder = null,
         public bool $required = false,
-        public ?string $icon = null
+       public array $macros = [],
+        public array $actions = [],
+         public ?string $icon = null
     ) {
     }
 
@@ -43,6 +44,8 @@ final class Radio extends SingleSelectFromList
             'options' => $this->options,
             'key' => $this->key,
             'displayifset' => $this->displayifset,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'visibleif' => $this->visibleif
         ];
     }
@@ -52,6 +55,9 @@ final class Radio extends SingleSelectFromList
         return $opt ? $opt->value : null;
     }
 
+    public function validate($value): bool {
+        return in_array($value ,collect($this->options)->map(fn(Option $option) => $option->value)->all());
+    }
     public function getFormatValue(string|int $value)
     {
         $opt = collect($this->options)->filter(fn(Option $op) => $op->value == $value)->first();

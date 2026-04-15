@@ -28,6 +28,8 @@ final class Date extends Input implements Element
         public ?Carbon $mindate = null,
         public ?Carbon $maxdate = null,
         public ?string $default = null,
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false
     ) {
     }
@@ -44,6 +46,8 @@ final class Date extends Input implements Element
             'holidays' => $this->holidays ?? true,
             'mindate' => $this->mindate ? $this->mindate->getTimestamp() : null,
             'maxdate' => $this->maxdate ? $this->maxdate->getTimestamp() : null,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'default' => $this->default ?? null
         ];
     }

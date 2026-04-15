@@ -11,6 +11,8 @@ class MarkdownTextarea extends Input implements Element
         public ?string $label = null,
         public array $visibleif = [],
         public bool $required = false,
+        public array $macros = [],
+        public array $actions = [],
         public array $displayifset = [],
     ) {
     }
@@ -22,6 +24,8 @@ class MarkdownTextarea extends Input implements Element
             'required' => $this->required,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

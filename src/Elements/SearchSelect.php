@@ -1,9 +1,7 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
-use Exception;
 use Illuminate\Support\Collection;
 use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
-use Veneridze\LaravelForms\UI\Card;
 
 final class SearchSelect extends MultipleSelectFromList
 {
@@ -20,6 +18,8 @@ final class SearchSelect extends MultipleSelectFromList
         public array $linkIncludes = [],
         public array $visibleif = [],
         public array $displayifset = [],
+        public array $macros = [],
+        public array $actions = [],
         public ?\Closure $tableData = null,
         public bool $required = false
     ) {
@@ -48,6 +48,8 @@ final class SearchSelect extends MultipleSelectFromList
             'canSearch' => $this->canSearch,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

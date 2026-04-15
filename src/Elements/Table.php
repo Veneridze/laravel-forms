@@ -14,6 +14,8 @@ final class Table extends Input
         public array $visibleif = [],
         public array $displayifset = [],
         public bool $changeRows = true,
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false,
     ) {
     }
@@ -29,6 +31,8 @@ final class Table extends Input
             'columns' => $this->columns,
             'visibleif' => $this->visibleif,
             'displayifset' => $this->displayifset,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'changeRows' => $this->changeRows,
         ];
     }

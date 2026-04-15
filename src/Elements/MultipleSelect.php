@@ -18,6 +18,8 @@ final class MultipleSelect extends MultipleSelectFromList
         public array $visibleif = [],
         public ?string $placeholder = null,
         public bool $required = false,
+        public array $macros = [],
+        public array $actions = [],
         public ?string $icon = null
     ) {
     }
@@ -35,6 +37,8 @@ final class MultipleSelect extends MultipleSelectFromList
             'options' => $this->options,
             'key' => $this->key,
             'displayifset' => $this->displayifset,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'visibleif' => $this->visibleif
         ];
     }
@@ -49,6 +53,26 @@ final class MultipleSelect extends MultipleSelectFromList
             ->values()
             ->map(fn(Option $op) => $op->value)
             ->all();
+    }
+
+
+
+    public function validate($value): bool
+    {
+
+        if(is_string($value)) {
+            $value = [$value];
+        }
+
+        $options = collect($this->options)->map(fn(Option $option) => $option->value)->all();
+
+        foreach($value as $val) {
+            if(!in_array($val, $options)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getFormatValue(array $values)

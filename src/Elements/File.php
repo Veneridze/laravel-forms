@@ -15,6 +15,8 @@ class File extends Input implements Element
         public bool $multiple = false,
         public array $displayifset = [],
         public array $visibleif = [],
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false
     ) {
     }
@@ -30,6 +32,8 @@ class File extends Input implements Element
             'disabled' => $this->disabled,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

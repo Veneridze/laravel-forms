@@ -14,6 +14,8 @@ class FileList extends Input implements Element
         public ?array $accept = null,
         public array $displayifset = [],
         public array $visibleif = [],
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false
     ) {
     }
@@ -28,6 +30,8 @@ class FileList extends Input implements Element
             'limit' => $this->limit,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

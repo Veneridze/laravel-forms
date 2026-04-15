@@ -1,9 +1,6 @@
 <?php
 namespace Veneridze\LaravelForms\Elements;
-use Exception;
-use Illuminate\Support\Collection;
 use Veneridze\LaravelForms\Prototype\MultipleSelectFromList;
-use Veneridze\LaravelForms\UI\Card;
 
 final class DragMultipleSearchSelect extends MultipleSelectFromList
 {
@@ -24,6 +21,8 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
         public array $displayifset = [],
         public ?string $link = null,
         public ?\Closure $format = null,
+        public array $macros = [],
+        public array $actions = [],
         public bool $required = false
     ) {
     }
@@ -46,6 +45,8 @@ final class DragMultipleSearchSelect extends MultipleSelectFromList
             'label' => $this->label,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

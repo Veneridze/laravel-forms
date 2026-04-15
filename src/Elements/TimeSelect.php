@@ -18,6 +18,8 @@ class TimeSelect extends Input implements Element
         public bool $disabled = false,
         public array $visibleif = [],
         public array $displayifset = [],
+        public ?array $macros = [],
+        public ?array $actions = [],
         public bool $required = false,
         public ?string $placeholder = null
     ) {
@@ -37,6 +39,8 @@ class TimeSelect extends Input implements Element
             'required' => $this->required,
             'placeholder' => $this->placeholder,
             'visibleif' => $this->visibleif,
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset
         ];
     }

@@ -20,6 +20,8 @@ final class TimeRange extends Input implements Element
         public ?string $placeholder = null,
         public ?array $visibleif = [],
         public array $displayifset = [],
+        public ?array $macros = [],
+        public ?array $actions = [],
     ) {
     }
     public function toArray(): array
@@ -37,6 +39,8 @@ final class TimeRange extends Input implements Element
             'endKey' => $this->endKey,
             'visibleif' => $this->visibleif,
             'step' => $this->step ? "{$hours}:{$minutes}" : "00:01",
+            'macros' => $this->macros,
+            'actions' => $this->actions,
             'displayifset' => $this->displayifset,
         ];
     }
