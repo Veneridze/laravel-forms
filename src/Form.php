@@ -50,7 +50,7 @@ class Form extends Data
         return [];
     }
 
-    public static function filterFields(string $type = null, array $rows): array
+    public static function filterFields(?string $type = null, array $rows): array
     {
         $space = app(Permission::class)->getClassName(static::$model);
         if ($type) {
