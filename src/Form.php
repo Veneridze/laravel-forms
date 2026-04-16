@@ -3,7 +3,6 @@
 namespace Veneridze\LaravelForms;
 
 
-use Exception;
 use Veneridze\LaravelForms\Elements\BulletList;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
@@ -16,7 +15,6 @@ use Veneridze\LaravelForms\Elements\SearchSelect;
 use Veneridze\LaravelForms\Elements\Select;
 use Veneridze\LaravelForms\Elements\Text;
 use Veneridze\LaravelForms\Elements\Textarea;
-use Veneridze\LaravelForms\Elements\TimeRange;
 use Veneridze\LaravelForms\Elements\TimeSelect;
 use Veneridze\LaravelForms\Models\Draft;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,7 +26,6 @@ use Veneridze\LaravelForms\Interfaces\Element;
 use Veneridze\LaravelPermission\Permission;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Spatie\LaravelData\Data;
-use Spatie\ModelInfo\ModelInfo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\ModelInfo\Relations\RelationFinder;
+use Illuminate\Support\Facades\Validator;
 
 class Form extends Data
 {
@@ -45,7 +43,7 @@ class Form extends Data
      * @return array<array<Element>>
      */
     public static string $model;
-    public static function fields(string $type): array
+    public static function fields(?string $type = null): array
     {
         return [];
     }
@@ -176,6 +174,27 @@ class Form extends Data
         return $fieldObj && method_exists($fieldObj, 'getRawValue') ? $fieldObj->getRawValue($value) : $value;
     }
 
+
+    public static function validate($context = null): array {
+        $validations = [];
+        
+        foreach (self::fields() as $row) {
+            foreach ($row as $field) {
+                if(method_exists($field, 'validate')) {
+                    $validations[$field->key ?? $field->startKey] = [
+                        function (string $attribute, mixed $value, \Closure $fail) use ($field) {
+                            if(!$field->validate($value)) {
+                                $fail("Указано недопустимое значение");   
+                            }
+                        }
+                    ];
+                    
+                }
+            }
+        }
+        return $validations;
+    }
+
     public static function getKeyByLabel(array $fields, string $label)
     {
         foreach ($fields as $row) {
@@ -231,6 +250,7 @@ class Form extends Data
     }
     public function post(): Model
     {
+        $this->validate();
         $role = Auth::user();
         if (method_exists($this, 'fillByRelatedModel')) {
             $rel = $role->relationModel();
@@ -270,8 +290,7 @@ class Form extends Data
 
     public function patch(Model $model)
     {
-        //static::$model = static::class;
-        //$role = Auth::user();
+        $this->validate();
         if (method_exists($this, 'fillByRelatedModel') && method_exists($this, 'relationModel')) {
             $rel = $model->relationModel();
             if ($rel) {
