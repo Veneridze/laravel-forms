@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\ModelInfo\Relations\RelationFinder;
 use Illuminate\Support\Facades\Validator;
 
-abstract class Form extends Data
+class Form extends Data
 {
     /**
      * Summary of fields
@@ -43,9 +43,10 @@ abstract class Form extends Data
      * @return array<array<Element>>
      */
     public static string $model;
-
-    // public static asbtract function fields($type = null);
-
+    public static function fields(?string $type = null): array
+    {
+        return [];
+    }
 
     public static function filterFields(?string $type = null, array $rows): array
     {
@@ -177,7 +178,7 @@ abstract class Form extends Data
     public static function validate($context = null): array {
         $validations = [];
         
-        foreach (static::fields() as $row) {
+        foreach (self::fields() as $row) {
             foreach ($row as $field) {
                 if(method_exists($field, 'validate')) {
                     $validations[$field->key ?? $field->startKey] = [
