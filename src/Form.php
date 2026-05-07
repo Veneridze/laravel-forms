@@ -33,18 +33,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\ModelInfo\Relations\RelationFinder;
-use Illuminate\Support\Facades\Validator;
 
 abstract class Form extends Data
 {
+    public static string $model;
     /**
      * Summary of fields
-     * @param string $type
-     * @return array<array<Element>>
+     * @param array $args
+     * @return array<array<mixed>>
      */
-    public static string $model;
-
-    // public static asbtract function fields($type = null);
+    public static function fields(...$args): array {
+        return [];
+    }
 
 
     public static function filterFields(?string $type = null, array $rows): array
@@ -60,10 +60,10 @@ abstract class Form extends Data
         }
     }
 
-    public static function toTableValidation(): array
+    public static function toTableValidation(...$args): array
     {
         $result = [];
-        foreach (static::fields() as $row) {
+        foreach (static::fields(...$args) as $row) {
             foreach ($row as $field) {
                 if ($field instanceof Radio) {
                     $result[$field->label] = [
@@ -143,7 +143,7 @@ abstract class Form extends Data
                 Arr::set($result, $propertyName, $attribute->getArguments()[0]);
             }
         }
-        foreach (static::fields('view') as $row) {
+        foreach (static::fields(...array_values(\Illuminate\Support\Facades\Route::current()->parameters())) as $row) {
             foreach ($row as $field) {
                 if (($field->key ?? $field->startKey) == $key) {
                     return $field->label;
@@ -151,19 +151,12 @@ abstract class Form extends Data
             }
         }
         return null;
-
-        // foreach ($form::fields('view') as $row) {
-        //     foreach ($row as $field) {
-        //         Arr::set($result, $field->key ?? $field->startKey, $field->label);
-        //     }
-        // }
-        // return Arr::get($result, $key, null);
     }
 
     public static function formatByKey(string $key, $value)
     {
         $result = [];
-        foreach (static::fields('view') as $row) {
+        foreach (static::fields(...array_values(\Illuminate\Support\Facades\Route::current()->parameters())) as $row) {
             foreach ($row as $field) {
                 $result[$field->key ?? $field->startKey] = $field;
             }
@@ -177,7 +170,7 @@ abstract class Form extends Data
     public static function validate($context = null): array {
         $validations = [];
         
-        foreach (static::fields() as $row) {
+        foreach (static::fields(...array_values(\Illuminate\Support\Facades\Route::current()->parameters())) as $row) {
             foreach ($row as $field) {
                 if(method_exists($field, 'validate')) {
                     $validations[$field->key ?? $field->startKey] = [
@@ -206,29 +199,29 @@ abstract class Form extends Data
         return null;
     }
 
-    public static function toData(Form $form): array
+    public static function toData(...$args): array
     {
         $result = [];
-        $reflect = new ReflectionClass($form);
+        $reflect = new ReflectionClass(static::class);
         foreach ($reflect->getProperties() as $property) {
             foreach ($property->getAttributes(Name::class) as $attribute) {
                 $propertyName = $property->getName();
-                Arr::set($result, $attribute->getArguments()[0], $form->$propertyName);
+                Arr::set($result, $attribute->getArguments()[0], static::$propertyName);
             }
         }
         return [
             ...$result,
             ...array_map(
-                function ($row) use ($form) {
+                function ($row) {
                     return array_map(
-                        function (Element $field) use ($form) {
+                        function (Element $field) {
                             $key = $field->key;
-                            return $field->toData(Arr::get($form, $key));
+                            return $field->toData(Arr::get(static::class, $key));
                         },
                         $row
                     );
                 },
-                $form::fields('view')
+                static::fields(...array_values(\Illuminate\Support\Facades\Route::current()->parameters()))
             )
         ];
     }
