@@ -42,7 +42,8 @@ abstract class Form extends Data
      * @param array $args
      * @return array<array<mixed>>
      */
-    public static function fields(...$args): array {
+    public static function fields(...$args): array
+    {
         return [];
     }
 
@@ -167,20 +168,22 @@ abstract class Form extends Data
     }
 
 
-    public static function validate($context = null): array {
+    public static function validate($context = null): array
+    {
         $validations = [];
-        
+
         foreach (static::fields(...array_values(\Illuminate\Support\Facades\Route::current()->parameters())) as $row) {
             foreach ($row as $field) {
-                if(method_exists($field, 'validate')) {
-                    $validations[$field->key ?? $field->startKey] = [
-                        function (string $attribute, mixed $value, \Closure $fail) use ($field) {
-                            if(!$field->validate($value)) {
-                                $fail("Указано недопустимое значение");   
+                if (is_object($field) || is_string($field)) {
+                    if (method_exists($field, 'validate')) {
+                        $validations[$field->key ?? $field->startKey] = [
+                            function (string $attribute, mixed $value, \Closure $fail) use ($field) {
+                                if (!$field->validate($value)) {
+                                    $fail("Указано недопустимое значение");
+                                }
                             }
-                        }
-                    ];
-                    
+                        ];
+                    }
                 }
             }
         }
@@ -253,21 +256,21 @@ abstract class Form extends Data
         $other = $this->all();
         //$other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
-        if(count($allows) > 0) {
+        if (count($allows) > 0) {
             $allows = array_values(array_filter($allows, fn($k) => $k != 'id'));
             $data = collect($other)->only($allows);
         } else {
             $data = collect($other);
         }
         $data = $data->mapWithKeys(function ($item, $key) {
-            if($item === "true") {
+            if ($item === "true") {
                 return [$key => true];
-            } elseif($item === "false") {
+            } elseif ($item === "false") {
                 return [$key => false];
             }
             return [$key => $item];
         })
-        ->toArray();
+            ->toArray();
         $obj = static::$model::create($data);
 
         if (!method_exists($obj, 'hasManyDeep')) {
@@ -292,21 +295,21 @@ abstract class Form extends Data
         $other = $this->all();
         //$other = array_filter(array_change_key_case($this->all()), fn($v, $k) => $v !== null, ARRAY_FILTER_USE_BOTH);
         $allows = array_change_key_case(DB::getSchemaBuilder()->getColumnListing(app(static::$model)->getTable()));
-        if(count($allows) > 0) {
+        if (count($allows) > 0) {
             $allows = array_values(array_filter($allows, fn($k) => $k != 'id'));
             $data = collect($other)->only($allows);
         } else {
             $data = collect($other);
         }
         $data = $data->mapWithKeys(function ($item, $key) {
-             if($item === "true") {
+            if ($item === "true") {
                 return [$key => true];
-            } elseif($item === "false") {
+            } elseif ($item === "false") {
                 return [$key => false];
             }
             return [$key => $item];
         })
-        ->toArray();
+            ->toArray();
         $model->update($data);
         if (!method_exists($model, 'hasManyDeep')) {
             $this->updateRelationShips($model, $other);
