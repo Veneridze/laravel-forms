@@ -167,7 +167,15 @@ abstract class Form extends Data
         return $fieldObj && method_exists($fieldObj, 'getRawValue') ? $fieldObj->getRawValue($value) : $value;
     }
 
+    public static function addRules(): array
+    {
+        return [];
+    }
 
+    public static function updateRules(): array
+    {
+        return [];
+    }
     public static function validate($context = null): array
     {
         $validations = [];
@@ -187,7 +195,12 @@ abstract class Form extends Data
                 }
             }
         }
-        return $validations;
+
+        if(request()->method() == "POST") {
+            return (collect($validations)->mergeRecursive(method_exists(static::class, 'addRules') ? static::addRules() : [])->all());
+        } else {
+            return (collect($validations)->mergeRecursive(method_exists(static::class, 'updateRules') ? static::addRules() : [])->all());
+        }
     }
 
     public static function getKeyByLabel(array $fields, string $label)
