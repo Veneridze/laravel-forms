@@ -3,6 +3,7 @@
 namespace Veneridze\LaravelForms;
 
 
+use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Elements\BulletList;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
@@ -186,8 +187,10 @@ abstract class Form extends Data
                     if (method_exists($field, 'validate')) {
                         $validations[$field->key ?? $field->startKey] = [
                             function (string $attribute, mixed $value, \Closure $fail) use ($field) {
-                                if (!$field->validate($value)) {
-                                    $fail("Указано недопустимое значение");
+                                if (!is_null($value) && !empty($value)) {
+                                    if (!$field->validate($value)) {
+                                        $fail("Указано недопустимое значение");
+                                    }
                                 }
                             }
                         ];
@@ -196,10 +199,10 @@ abstract class Form extends Data
             }
         }
 
-        if(request()->method() == "POST") {
+        if (request()->isMethod('post')) {
             return (collect($validations)->mergeRecursive(method_exists(static::class, 'addRules') ? static::addRules() : [])->all());
         } else {
-            return (collect($validations)->mergeRecursive(method_exists(static::class, 'updateRules') ? static::addRules() : [])->all());
+            return (collect($validations)->mergeRecursive(method_exists(static::class, 'updateRules') ? static::updateRules() : [])->all());
         }
     }
 
