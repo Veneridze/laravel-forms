@@ -2,7 +2,7 @@
     "name": "veneridze/laravel-forms",
     "require": {
         "php": ">=8.2",
-        "laravel/framework": "^10.0|^11.0|^12.0",
+        "laravel/framework": "^10.0|^11.0|^12.0|^13.0",
         "spatie/laravel-data": "^4.8",
         "spatie/laravel-package-tools": "^1.18",
         "veneridze/laravel-permission": "dev-main",
@@ -12,12 +12,20 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/veneridze/laravel-documents.git"
+            "type": "composer",
+            "url": "https://packagist.org"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/veneridze/laravel-eloquent-authorable.git"
+            "url": "https://github.com/vkopaev/laravel-documents.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/performingdigital/laravel-field-attributes"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/vkopaev/laravel-eloquent-authorable.git"
         }
     ],
     "extra": {
