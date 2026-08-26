@@ -2,9 +2,9 @@
 namespace Veneridze\LaravelForms\Elements;
 use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Form;
-use Veneridze\LaravelForms\Prototype\SingleSelectFromList;
+use Veneridze\LaravelForms\Prototype\Input;
 
-final class RepeatableForm extends SingleSelectFromList
+final class RepeatableForm extends Input
 {
     public string $type = 'select';
     public function __construct(
@@ -27,7 +27,6 @@ final class RepeatableForm extends SingleSelectFromList
             'disabled' => $this->disabled,
             'label' => $this->label,
             'icon' => $this->icon,
-            'options' => $this->options,
             'required' => $this->required,
             'key' => $this->key,
             'visibleif' => $this->visibleif,
@@ -39,17 +38,13 @@ final class RepeatableForm extends SingleSelectFromList
 
     public function getRawValue($label)
     {
-        $opt = collect($this->options)->filter(fn(Option $op) => Form::compareString(Str::lower($op->label)) == Form::compareString(trim(Str::lower($label))))->first();
-        return $opt ? $opt->value : null;
     }
 
     public function validate($value): bool {
-        return in_array($value ,collect($this->options)->map(fn(Option $option) => $option->value)->all());
+        return is_array($value);
     }
 
     public function getFormatValue(string|int $value)
     {
-        $opt = collect($this->options)->filter(fn(Option $op) => $op->value == $value)->first();
-        return optional($opt)->label;
     }
 }
