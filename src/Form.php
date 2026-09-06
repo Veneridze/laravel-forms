@@ -38,7 +38,6 @@ use Spatie\ModelInfo\Relations\RelationFinder;
 
 abstract class Form extends Data
 {
-    use HasFieldAttributes;
     public static string $model;
     /**
      * Summary of fields
