@@ -10,6 +10,8 @@ class DataNormalizer implements Normalizer
     {
         if(is_object($value)) {
             $value = $value->toArray();
+        } elseif(is_null($value)) {
+            $value = [];
         }
         $array = $value;
         foreach ($array as $key => $value) {
