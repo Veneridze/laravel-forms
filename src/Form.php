@@ -24,6 +24,7 @@ use Illuminate\Support\Collection;
 use ReflectionClass;
 use Veneridze\LaravelForms\Attributes\Name;
 use Veneridze\LaravelForms\Interfaces\Element;
+use Veneridze\LaravelForms\Normalizers\DataNormalizer;
 use Veneridze\LaravelPermission\Permission;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Spatie\LaravelData\Data;
@@ -37,6 +38,7 @@ use Spatie\ModelInfo\Relations\RelationFinder;
 
 abstract class Form extends Data
 {
+    use HasFieldAttributes;
     public static string $model;
     /**
      * Summary of fields
@@ -48,6 +50,16 @@ abstract class Form extends Data
         return [];
     }
 
+    /**
+     * Summary of normalizers
+     * @return string[]
+     */
+    public static function normalizers(): array
+    {
+        return [
+            DataNormalizer::class
+        ];
+    }
 
     public static function filterFields(?string $type = null, array $rows): array
     {
