@@ -3,7 +3,6 @@
 namespace Veneridze\LaravelForms;
 
 
-use Illuminate\Support\Str;
 use Veneridze\LaravelForms\Elements\BulletList;
 use Veneridze\LaravelForms\Elements\Checkbox;
 use Veneridze\LaravelForms\Elements\Date;
